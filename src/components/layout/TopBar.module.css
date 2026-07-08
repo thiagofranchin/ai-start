@@ -1,0 +1,58 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.topbar h2 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -.025em;
+}
+
+.topbar h2 span {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 7px 14px;
+  color: var(--text-muted);
+  font-size: .85rem;
+  min-width: 200px;
+  transition: var(--transition);
+}
+
+.searchBox:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.searchBox input {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: .85rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+.searchBox input::placeholder {
+  color: var(--text-muted);
+}

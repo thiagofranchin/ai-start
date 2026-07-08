@@ -1,0 +1,27 @@
+import { CriptoItem } from '@/types';
+
+export const cripto: CriptoItem[] = [
+  { name: 'Uniswap', url: 'https://app.uniswap.org/', desc: 'Swap de tokens — exchange descentralizado líder na Ethereum', icon: '🦄', color: 'red', categories: ['Swap', 'Liquidity Pools'] },
+  { name: 'Raydium', url: 'https://raydium.io/liquidity-pools/', desc: 'Liquidity Pools — yield farming na Solana', icon: '☀️', color: 'blue', categories: ['Swap', 'Liquidity Pools'] },
+  { name: 'Orca', url: 'https://www.orca.so/', desc: 'Liquidity Pools e swaps — DEX na Solana com pools concentradas', icon: '🐳', color: 'cyan', categories: ['Swap', 'Liquidity Pools'] },
+  { name: 'CoW Swap', url: 'https://swap.cow.fi/', desc: 'DEX aggregator com leilão em lote — proteção MEV e melhores preços', icon: '🐮', color: 'green', categories: ['Swap'] },
+  { name: 'DeFi Sim', url: 'https://defisim.xyz/', desc: 'Simulador de posições Aave — calculadora de liquidação e saúde da carteira', icon: '📊', color: 'purple', categories: ['DeFi', 'Analytics'] },
+  { name: 'TradingView', url: 'https://br.tradingview.com/', desc: 'Gráficos e análise técnica — cripto, ações, forex e mais', icon: '📈', color: 'blue', categories: ['Analytics'] },
+  { name: 'Coinglass', url: 'https://www.coinglass.com/pro/futures/LiquidationHeatMapNew', desc: 'Mapa de calor de liquidações e dados de futuros cripto', icon: '🔥', color: 'orange', categories: ['Analytics'] },
+  { name: 'CheckOnChain', url: 'https://charts.checkonchain.com/darkmode.html', desc: 'Dashboards e gráficos on-chain avançados', icon: '⛓️', color: 'cyan', categories: ['Analytics'] },
+  { name: 'CoinMarketCap', url: 'https://coinmarketcap.com/', desc: 'Ranking de criptomoedas por capitalização de mercado', icon: '📊', color: 'green', categories: ['Analytics'] },
+  { name: 'DefiLlama', url: 'https://defillama.com/', desc: 'Agregador de TVL e dados DeFi em múltiplas chains', icon: '🦜', color: 'purple', categories: ['Analytics', 'DeFi'] },
+  { name: 'LlamaSwap', url: 'https://swap.defillama.com/', desc: 'Agregador de swaps multi-chain — melhores taxas em várias DEXs', icon: '🦜', color: 'red', categories: ['Swap', 'Analytics'] },
+  { name: 'Kamino', url: 'https://kamino.com/', desc: 'Protocolo DeFi na Solana — lending, borrow e LPs automatizados', icon: '🌀', color: 'cyan', categories: ['Liquidity Pools', 'Lending'] },
+  { name: 'Picnic', url: 'https://usepicnic.com/br/app', desc: 'App brasileiro de cripto — exchange, pagamentos e cartão', icon: '🧺', color: 'green', categories: ['Exchange', 'Payments'] },
+  { name: 'Ripio', url: 'https://www.ripio.com/', desc: 'Exchange LATAM — compra, venda e rendimentos em cripto', icon: '💳', color: 'blue', categories: ['Exchange'] },
+  { name: 'Hylo', url: 'https://hylo.so/leverage', desc: 'Trading com alavancagem na Solana — perps e leverage', icon: '📱', color: 'orange', categories: ['Trading'] },
+  { name: 'Quantfury', url: 'https://trading.quantfury.com/', desc: 'Trading de cripto, ações e commodities com preços em tempo real', icon: '⚡', color: 'purple', categories: ['Trading', 'Exchange'] },
+  { name: 'Binance', url: 'https://www.binance.com/pt-BR/my/dashboard', desc: 'Maior exchange de criptomoedas do mundo — spot, futuros e mais', icon: '📦', color: 'orange', categories: ['Exchange', 'Trading'] },
+  { name: 'Aave', url: 'https://app.aave.com/', desc: 'Protocolo de lending e borrowing descentralizado em múltiplas chains', icon: '🔑', color: 'purple', categories: ['Lending', 'DeFi'] },
+  { name: 'Linea Bridge', url: 'https://linea.build/bridge', desc: 'Bridge oficial da Linea (L2 zkEVM) — transferências entre Ethereum e Linea', icon: '🌉', color: 'blue', categories: ['Bridges'] },
+  { name: 'deBridge', url: 'https://app.debridge.com/', desc: 'Ponte cross-chain para transferência de ativos entre blockchains', icon: '🌈', color: 'cyan', categories: ['Bridges'] },
+  { name: 'Allbridge', url: 'https://core.allbridge.io/', desc: 'Ponte cross-chain multi-token entre diversas redes', icon: '🔥', color: 'orange', categories: ['Bridges'] },
+  { name: 'Across', url: 'https://across.to/', desc: 'Ponte cross-chain otimista — transfers rápidas entre L2s e Ethereum', icon: '🌊', color: 'green', categories: ['Bridges'] },
+  { name: 'Jumper', url: 'https://jumper.xyz/pt', desc: 'Agregador de bridges e swaps multi-chain — melhor rota entre redes', icon: '👾', color: 'blue', categories: ['Bridges', 'Swap'] },
+];
