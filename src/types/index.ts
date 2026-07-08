@@ -1,10 +1,13 @@
 // ===== TIPOS BASE =====
-export interface BaseItem {
+export interface BaseItemFields {
   name: string;
-  url: string;
   desc: string;
   icon: string;
   color: 'purple' | 'green' | 'orange' | 'blue' | 'red' | 'cyan';
+}
+
+export interface BaseItem extends BaseItemFields {
+  url: string;
 }
 
 export interface AIItem extends BaseItem {}
@@ -16,7 +19,7 @@ export interface RepoItem extends BaseItem {
   extraLabel?: string;
 }
 
-export interface CmdItem extends BaseItem {
+export interface CmdItem extends BaseItemFields {
   cmd: string;
   group: string;
   repoLink?: string;
