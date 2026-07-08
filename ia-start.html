@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ai-start · dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231a1a2e'/%3E%3Ctext y='72' x='50' font-size='56' text-anchor='middle' fill='%237c5cfc'%3E🚀%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         /* ===== RESET & VARIABLES ===== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -159,6 +161,7 @@
             transition: var(--transition);
         }
         .sidebar-toggle:hover { background: var(--bg-card); }
+        .sidebar-toggle.active { left: auto; right: 14px; }
         .sidebar-overlay {
             display: none;
             position: fixed; inset: 0;
@@ -563,6 +566,186 @@
             margin-left: 6px;
             font-size: .65rem;
             opacity: .7;
+        }
+
+        /* ===== CRIPTO — TERMINAL THEME ===== */
+        #page-cripto {
+            --term-bg: #050508;
+            --term-surface: #0a0a12;
+            --term-border: #1a1a2a;
+            --term-accent: #00ffc8;
+            --term-accent-glow: rgba(0, 255, 200, 0.18);
+            --term-text: #d4d4d4;
+            --term-muted: #6a6a7a;
+            --term-dim: #2a2a3e;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+        }
+        /* Terminal grid bg */
+        #page-cripto::before {
+            content: ''; position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,255,200,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,200,.025) 1px, transparent 1px);
+            background-size: 36px 36px;
+            pointer-events: none; z-index: 0;
+        }
+        /* Scanline flicker overlay */
+        #page-cripto::after {
+            content: ''; position: absolute; inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.08) 2px, rgba(0,0,0,.08) 4px);
+            pointer-events: none; z-index: 0;
+            opacity: .3;
+        }
+        #page-cripto .section { position: relative; z-index: 1; }
+
+        /* Section header */
+        #page-cripto .section-header {
+            border-bottom: 1px solid var(--term-border);
+            padding-bottom: 14px; margin-bottom: 20px;
+        }
+        #page-cripto .section-header .emoji { font-size: 1rem; filter: saturate(.8); }
+        #page-cripto .section-header h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem; font-weight: 600;
+            letter-spacing: .04em; text-transform: uppercase;
+            color: var(--term-text);
+        }
+        #page-cripto .section-header h3::after {
+            content: '▊'; margin-left: 6px;
+            animation: termBlink 1s step-end infinite;
+            color: var(--term-accent); font-size: .85rem;
+        }
+        @keyframes termBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+        #page-cripto .section-header .count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .65rem; color: var(--term-accent);
+            background: var(--term-accent-glow);
+            border: 1px solid var(--term-border);
+            border-radius: 2px; padding: 2px 10px;
+            letter-spacing: .06em;
+        }
+
+        /* Filter bar — terminal toggle style */
+        #page-cripto .filter-bar {
+            gap: 5px; margin-bottom: 20px;
+            padding-bottom: 14px; border-bottom: 1px solid var(--term-border);
+        }
+        #page-cripto .filter-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .65rem; padding: 4px 10px;
+            border-radius: 2px; border: 1px solid var(--term-border);
+            background: transparent; color: var(--term-muted);
+            cursor: pointer; text-transform: uppercase;
+            letter-spacing: .08em;
+            transition: all .15s ease;
+        }
+        #page-cripto .filter-pill:hover {
+            border-color: var(--term-accent); color: var(--term-text);
+            background: rgba(0,255,200,.04);
+        }
+        #page-cripto .filter-pill.active {
+            background: var(--term-accent); border-color: var(--term-accent);
+            color: #050508; font-weight: 600;
+            box-shadow: 0 0 16px var(--term-accent-glow);
+        }
+        #page-cripto .filter-pill .count {
+            margin-left: 3px; opacity: .55; font-size: .55rem;
+        }
+        #page-cripto .filter-pill.active .count { opacity: .8; color: #050508; }
+
+        /* Cards grid */
+        #page-cripto .card-grid.wide {
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 10px;
+        }
+
+        /* Terminal cards */
+        #page-cripto .card {
+            background: var(--term-surface);
+            border: 1px solid var(--term-border);
+            border-radius: 3px; padding: 14px 16px 12px;
+            cursor: pointer; position: relative; overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 2px solid var(--term-border);
+            animation: termFadeIn .35s ease backwards;
+            transition: all .2s ease;
+        }
+        #page-cripto .card::before { display: none; }
+        #page-cripto .card:hover {
+            border-color: var(--term-dim);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 24px var(--term-accent-glow);
+        }
+
+        /* Top border by category */
+        #page-cripto .card[data-category*="Swap"]         { border-top-color: #00ffc8; }
+        #page-cripto .card[data-category*="Liquidity"]    { border-top-color: #00b8ff; }
+        #page-cripto .card[data-category*="Analytics"]    { border-top-color: #ffb800; }
+        #page-cripto .card[data-category*="DeFi"]         { border-top-color: #a855f7; }
+        #page-cripto .card[data-category*="Lending"]      { border-top-color: #34d399; }
+        #page-cripto .card[data-category*="Exchange"]     { border-top-color: #ff6633; }
+        #page-cripto .card[data-category*="Trading"]      { border-top-color: #ff3366; }
+        #page-cripto .card[data-category*="Bridges"]      { border-top-color: #818cf8; }
+        #page-cripto .card[data-category*="Payments"]     { border-top-color: #f59e0b; }
+
+        /* Live pulse dot */
+        #page-cripto .card::after {
+            content: '●'; position: absolute; top: 10px; right: 12px;
+            font-size: .45rem; color: var(--term-accent);
+            opacity: .35;
+            animation: termPulse 2.2s ease-in-out infinite;
+        }
+        @keyframes termPulse {
+            0%,100%{opacity:.35;text-shadow:0 0 2px var(--term-accent)}
+            50%{opacity:1;text-shadow:0 0 6px var(--term-accent),0 0 12px var(--term-accent)}
+        }
+
+        /* Card inner elements */
+        #page-cripto .card .card-icon {
+            width: 30px; height: 30px; border-radius: 2px;
+            font-size: .9rem; margin-bottom: 8px;
+            background: rgba(255,255,255,.03); border: 1px solid var(--term-border);
+        }
+        #page-cripto .card h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .82rem; font-weight: 600;
+            letter-spacing: -.01em; color: var(--term-text);
+            margin-bottom: 3px;
+        }
+        #page-cripto .card p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .64rem; color: var(--term-muted);
+            line-height: 1.45;
+        }
+        #page-cripto .card .meta {
+            margin-top: 10px; padding-top: 8px;
+            border-top: 1px solid var(--term-border);
+            font-size: .55rem; color: var(--term-muted);
+            text-transform: uppercase; letter-spacing: .1em;
+        }
+        #page-cripto .card .meta .dot {
+            width: 4px; height: 4px; border-radius: 0;
+            background: var(--term-accent);
+            animation: termPulse 2.2s ease-in-out infinite;
+        }
+        #page-cripto .card .card-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .6rem;
+            background: rgba(255,255,255,.03);
+            border-color: var(--term-border);
+            color: var(--term-accent);
+        }
+        #page-cripto .card .card-link:hover {
+            background: transparent;
+            color: var(--term-accent);
+            text-shadow: 0 0 8px var(--term-accent-glow), 0 0 20px var(--term-accent-glow);
+        }
+
+        /* Entrance animation */
+        @keyframes termFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -1048,9 +1231,10 @@
             const filtered = currentCriptoFilter === 'Todas'
                 ? DATA.cripto : DATA.cripto.filter(c => c.categories.includes(currentCriptoFilter));
 
-            filtered.forEach(c => {
+            filtered.forEach((c, i) => {
                 const card = renderCard(c, 'cripto');
                 card.setAttribute('data-category', c.categories.join(' '));
+                card.style.animationDelay = (i * 0.03) + 's';
                 grid.appendChild(card);
             });
         }
@@ -1152,6 +1336,7 @@
         document.getElementById('sidebarToggle').addEventListener('click', () => {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('sidebarOverlay').classList.toggle('open');
+            document.getElementById('sidebarToggle').classList.toggle('active');
         });
         document.getElementById('sidebarOverlay').addEventListener('click', () => {
             document.getElementById('sidebar').classList.remove('open');
