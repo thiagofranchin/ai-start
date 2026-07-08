@@ -742,6 +742,59 @@
             text-shadow: 0 0 8px var(--term-accent-glow), 0 0 20px var(--term-accent-glow);
         }
 
+        /* Ticker de preços */
+        #page-cripto #tickerSection { margin-top: 28px; }
+        #page-cripto .refresh-btn {
+            font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+            background: rgba(255,255,255,.03); border: 1px solid var(--term-border);
+            border-radius: 2px; color: var(--term-accent);
+            padding: 5px 12px; cursor: pointer; transition: all .15s ease;
+            text-transform: uppercase; letter-spacing: .08em; margin-left: auto;
+        }
+        #page-cripto .refresh-btn:hover { background: var(--term-accent); color: var(--term-bg); }
+        #page-cripto .refresh-btn:active { transform: scale(.95); }
+        #page-cripto .refresh-btn.loading { opacity: .5; pointer-events: none; }
+        #page-cripto .ticker-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px; margin-top: 12px;
+        }
+        #page-cripto .ticker-card {
+            background: rgba(255,255,255,.015); border: 1px solid var(--term-border);
+            border-radius: 3px; padding: 14px 16px;
+            font-family: 'JetBrains Mono', monospace; position: relative; overflow: hidden;
+            transition: all .2s ease;
+        }
+        #page-cripto .ticker-card:hover {
+            border-color: var(--term-dim);
+            box-shadow: 0 4px 16px rgba(0,0,0,.4), 0 0 12px var(--term-accent-glow);
+        }
+        #page-cripto .ticker-card[data-coin="btc"] { border-top: 2px solid #f7931a; }
+        #page-cripto .ticker-card[data-coin="eth"] { border-top: 2px solid #8c8cff; }
+        #page-cripto .ticker-card[data-coin="sol"] { border-top: 2px solid #00ffa3; }
+        #page-cripto .ticker-card.dolar-card { border-top: 2px solid #ffd700; }
+        #page-cripto .ticker-header {
+            display: flex; align-items: center; gap: 6px;
+            font-size: .65rem; text-transform: uppercase; letter-spacing: .1em;
+            color: var(--term-muted); margin-bottom: 6px;
+        }
+        #page-cripto .ticker-icon { font-size: .8rem; }
+        #page-cripto .ticker-price {
+            font-size: 1.15rem; font-weight: 600; color: var(--term-text);
+            letter-spacing: -.02em; transition: color .3s ease;
+        }
+        #page-cripto .ticker-label {
+            font-size: .5rem; text-transform: uppercase; letter-spacing: .1em;
+            color: var(--term-muted); margin-top: 4px;
+        }
+        #page-cripto .ticker-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 10px; font-family: 'JetBrains Mono', monospace;
+            font-size: .5rem; color: var(--term-muted);
+            text-transform: uppercase; letter-spacing: .08em;
+        }
+        #page-cripto .ticker-update-time { opacity: .8; }
+        #page-cripto .ticker-source { opacity: .4; }
+
         /* Entrance animation */
         @keyframes termFadeIn {
             from { opacity: 0; transform: translateY(6px); }
@@ -995,6 +1048,39 @@
                 </div>
                 <div class="card-grid wide" id="criptoGrid"></div>
             </div>
+            <div class="section" id="tickerSection">
+                <div class="section-header">
+                    <span class="emoji">📡</span>
+                    <h3>Preços em Tempo Real</h3>
+                    <button class="refresh-btn" id="refreshPricesBtn" onclick="fetchAllPrices()" title="Atualizar preços">↻ Atualizar</button>
+                </div>
+                <div class="ticker-grid" id="tickerGrid">
+                    <div class="ticker-card" data-coin="btc">
+                        <div class="ticker-header"><span class="ticker-icon">₿</span> BTC</div>
+                        <div class="ticker-price" id="btcPrice">—</div>
+                        <div class="ticker-label">Bitcoin</div>
+                    </div>
+                    <div class="ticker-card" data-coin="eth">
+                        <div class="ticker-header"><span class="ticker-icon">⟠</span> ETH</div>
+                        <div class="ticker-price" id="ethPrice">—</div>
+                        <div class="ticker-label">Ethereum</div>
+                    </div>
+                    <div class="ticker-card" data-coin="sol">
+                        <div class="ticker-header"><span class="ticker-icon">◎</span> SOL</div>
+                        <div class="ticker-price" id="solPrice">—</div>
+                        <div class="ticker-label">Solana</div>
+                    </div>
+                    <div class="ticker-card dolar-card" data-coin="usdbrl">
+                        <div class="ticker-header"><span class="ticker-icon">💵</span> USD/BRL</div>
+                        <div class="ticker-price" id="dolarPrice">—</div>
+                        <div class="ticker-label">Dólar Comercial</div>
+                    </div>
+                </div>
+                <div class="ticker-footer">
+                    <span class="ticker-update-time" id="tickerUpdateTime">⏱️ —</span>
+                    <span class="ticker-source">CoinGecko · AwesomeAPI</span>
+                </div>
+            </div>
         </div>
 
     </main>
@@ -1086,6 +1172,9 @@
             // close mobile sidebar
             document.getElementById('sidebar').classList.remove('open');
             document.getElementById('sidebarOverlay').classList.remove('open');
+
+            // auto-fetch prices when entering Cripto
+            if (page === 'cripto') fetchAllPrices();
         }
 
         // ===== RENDER CARDS =====
@@ -1237,6 +1326,53 @@
                 card.style.animationDelay = (i * 0.03) + 's';
                 grid.appendChild(card);
             });
+        }
+
+        // ===== CRIPTO PRICE TICKER =====
+        async function fetchAllPrices() {
+            const btn = document.getElementById('refreshPricesBtn');
+            if (!btn) return;
+            btn.classList.add('loading');
+            await Promise.allSettled([fetchCriptoPrices(), fetchDolarRate()]);
+            btn.classList.remove('loading');
+            const el = document.getElementById('tickerUpdateTime');
+            if (el) el.textContent = '⏱️ ' + new Date().toLocaleTimeString('pt-BR');
+        }
+        async function fetchCriptoPrices() {
+            try {
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                const btc = document.getElementById('btcPrice');
+                const eth = document.getElementById('ethPrice');
+                const sol = document.getElementById('solPrice');
+                if (btc) btc.textContent = '$ ' + formatPrice(data.bitcoin.usd);
+                if (eth) eth.textContent = '$ ' + formatPrice(data.ethereum.usd);
+                if (sol) sol.textContent = '$ ' + formatPrice(data.solana.usd);
+            } catch (e) {
+                ['btcPrice','ethPrice','solPrice'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = '⚠️ erro';
+                });
+            }
+        }
+        async function fetchDolarRate() {
+            try {
+                const res = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                const bid = parseFloat(data.USDBRL.bid);
+                const el = document.getElementById('dolarPrice');
+                if (el) el.textContent = 'R$ ' + bid.toFixed(2);
+            } catch (e) {
+                const el = document.getElementById('dolarPrice');
+                if (el) el.textContent = '⚠️ erro';
+            }
+        }
+        function formatPrice(val) {
+            if (val >= 1000) return val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            if (val >= 1) return val.toFixed(2);
+            return val.toFixed(4);
         }
 
         // ===== UPDATE COUNTS =====
