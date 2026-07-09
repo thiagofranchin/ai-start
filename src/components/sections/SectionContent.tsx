@@ -23,7 +23,7 @@ const SECTION_TITLES_CLIENT: Record<string, string> = {
   ais: 'Inteligências Artificiais',
   apis: 'APIs & Plataformas',
   repos: 'Repositórios',
-  commands: 'Comandos & Caminhos',
+  commands: 'Terminal',
   utils: 'Utilitários & Ferramentas',
   skills: 'Skills & Comandos Claude',
   cursos: 'Cursos & Plataformas de Ensino',
@@ -119,15 +119,18 @@ function renderCommandGroups() {
   }
 
   return Array.from(groups.entries()).map(([group, items]) => (
-    <CommandGroup key={group} title={group} count={items.length}>
+    <CommandGroup
+      key={group}
+      title={group}
+      count={items.length}
+      titleUrl={group === 'Free Claude Code' ? 'https://github.com/Alishahryar1/free-claude-code' : undefined}
+    >
       {items.map((item) => (
         <SearchFilter key={item.name} searchText={`${item.name} ${item.desc} ${item.cmd || ''}`}>
           <CmdCard
             name={item.name}
             desc={item.desc}
             cmd={item.cmd}
-            repoLink={item.repoLink}
-            repoLabel="Ver repositório"
           />
         </SearchFilter>
       ))}

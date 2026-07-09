@@ -473,6 +473,16 @@ a {
   letter-spacing: -.01em;
 }
 
+.sub-section-title-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition);
+}
+
+.sub-section-title-link:hover h4 {
+  color: var(--accent);
+}
+
 .sub-section-header .count-sm {
   font-size: .65rem;
   color: var(--text-muted);
