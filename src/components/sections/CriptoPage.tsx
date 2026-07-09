@@ -17,6 +17,8 @@ const CATEGORY_COLORS: Record<string, string> = {
   'Trading': styles.catTrading,
   'Bridges': styles.catBridges,
   'Payments': styles.catPayments,
+  'Security': styles.catSecurity,
+  'RWA': styles.catRWA,
 };
 
 export default function CriptoPage() {

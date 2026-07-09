@@ -220,6 +220,8 @@
 .catTrading { border-top-color: #ff3366; }
 .catBridges { border-top-color: #818cf8; }
 .catPayments { border-top-color: #f59e0b; }
+.catSecurity { border-top-color: #ef4444; }
+.catRWA { border-top-color: #84cc16; }
 
 @keyframes termBlink {
   0%, 100% { opacity: 1; }
