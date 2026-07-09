@@ -36,7 +36,7 @@ interface SectionContentProps {
 export default function SectionContent({ section }: SectionContentProps) {
   const title = SECTION_TITLES_CLIENT[section] || section;
   const emoji = SECTION_EMOJIS[section] || '📄';
-  const wide = section === 'ais' || section === 'repos' || section === 'skills' || section === 'cursos';
+  const wide = section === 'ais' || section === 'apis' || section === 'repos' || section === 'commands' || section === 'skills' || section === 'cursos';
 
   return (
     <PageSection emoji={emoji} title={title} count={getCount(section)} wide={wide}>
