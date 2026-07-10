@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 34px;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -31,10 +31,10 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-xs);
-  padding: 7px 14px;
+  padding: 9px 14px;
   color: var(--text-muted);
   font-size: .85rem;
-  min-width: 200px;
+  min-width: min(280px, 45vw);
   transition: var(--transition);
 }
 
@@ -56,3 +56,4 @@
 .searchBox input::placeholder {
   color: var(--text-muted);
 }
+

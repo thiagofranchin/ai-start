@@ -13,37 +13,20 @@ const stats = [
 ];
 
 export default function HomePage() {
-  const total = stats.reduce((sum, s) => sum + s.value, 0);
-
+  const total = stats.reduce((sum, stat) => sum + stat.value, 0);
   return (
     <>
-      <div className="section">
-        <div className="section-header">
-          <span className="emoji">🚀</span>
-          <h3>Bem-vindo ao ai-start</h3>
-        </div>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '.9rem', maxWidth: '600px' }}>
-          Seu hub pessoal para acesso rápido a inteligências artificiais, APIs, repositórios e
-          comandos do dia a dia. Use o menu ao lado ou a busca para encontrar o que precisa.
-        </p>
+      <div className="home-hero">
+        <div className="hero-orbit" aria-hidden="true"><span /></div>
+        <div className="hero-kicker"><span /> SISTEMA ONLINE</div>
+        <h1>Seu ecossistema digital,<br /><em>em uma única órbita.</em></h1>
+        <p>IAs, APIs, repositórios e comandos organizados em uma central rápida, inteligente e pronta para o seu próximo projeto.</p>
+        <div className="hero-meta"><span><strong>{total}</strong> recursos indexados</span><span>⌘ Busca instantânea</span></div>
       </div>
-
       <div className="section">
-        <div className="section-header">
-          <span className="emoji">📊</span>
-          <h3>Visão geral</h3>
-          <span className="count">{total} itens no total</span>
-        </div>
-        <div className="card-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))' }}>
-          {stats.map((stat) => (
-            <StatCard
-              key={stat.label}
-              icon={stat.icon}
-              value={stat.value}
-              label={stat.label}
-              color={stat.color}
-            />
-          ))}
+        <div className="section-header"><span className="emoji">📊</span><h3>Visão geral</h3><span className="count">{total} itens no total</span></div>
+        <div className="card-grid home-stats-grid">
+          {stats.map((stat) => <StatCard key={stat.label} {...stat} />)}
         </div>
       </div>
     </>

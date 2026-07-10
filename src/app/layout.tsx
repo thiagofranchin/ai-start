@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import Sidebar from '@/components/layout/Sidebar';
 import TopBar from '@/components/layout/TopBar';
+import MarketBar from '@/components/layout/MarketBar';
 import { SearchProvider } from '@/components/layout/SearchProvider';
 import './globals.css';
 
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <SearchProvider>
+          <MarketBar />
           <div className="main-layout">
             <Sidebar />
             <main className="main-content">
@@ -46,3 +48,4 @@ export default function RootLayout({
     </html>
   );
 }
+

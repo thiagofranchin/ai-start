@@ -3,6 +3,8 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   padding: 18px 20px;
+  min-height: 150px;
+  backdrop-filter: blur(14px);
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
@@ -54,7 +56,7 @@
 .icon.cyan   { background: rgba(34,211,238,.15); border-color: rgba(34,211,238,.3); }
 
 .card h4 {
-  font-size: .95rem;
+  font-size: 1.7rem;
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -63,3 +65,4 @@
   font-size: .78rem;
   color: var(--text-secondary);
 }
+
