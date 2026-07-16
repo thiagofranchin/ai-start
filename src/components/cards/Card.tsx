@@ -11,9 +11,12 @@ interface CardProps {
 }
 
 export default function Card({ name, url, desc, icon, color, extraUrl, extraLabel }: CardProps) {
+  const isImage = icon.startsWith('/');
   return (
     <div className="card">
-      <div className={`card-icon ${color}`}>{icon}</div>
+      <div className={`card-icon ${color}`}>
+        {isImage ? <img src={icon} alt={name} className="card-icon-img" /> : icon}
+      </div>
       <h4>{name}</h4>
       <p>{desc}</p>
       <Link href={url} className="card-link" target="_blank" rel="noopener noreferrer" />

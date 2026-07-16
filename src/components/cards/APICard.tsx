@@ -9,9 +9,16 @@ interface APICardProps {
 }
 
 export default function APICard({ name, url, desc, icon, tag }: APICardProps) {
+  const isImage = icon.startsWith('/');
   return (
     <div className="api-highlight">
-      <div className="api-icon">{icon}</div>
+      <div className="api-icon">
+        {isImage ? (
+          <img src={icon} alt={name} className="api-icon-img" />
+        ) : (
+          icon
+        )}
+      </div>
       <div className="api-content">
         <h4>{name}</h4>
         <p>{desc}</p>

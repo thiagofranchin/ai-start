@@ -223,6 +223,12 @@ a {
   border: 1px solid var(--border);
 }
 
+.card-icon-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
 .card-icon.purple { background: rgba(124,92,252,.15); border-color: rgba(124,92,252,.3); }
 .card-icon.green  { background: rgba(52,211,153,.15); border-color: rgba(52,211,153,.3); }
 .card-icon.orange { background: rgba(251,191,36,.15); border-color: rgba(251,191,36,.3); }
@@ -311,6 +317,12 @@ a {
   justify-content: center;
   font-size: 1.3rem;
   flex-shrink: 0;
+}
+
+.api-highlight .api-icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .api-highlight .api-content {
