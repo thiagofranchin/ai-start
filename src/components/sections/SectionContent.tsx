@@ -25,7 +25,7 @@ const SECTION_TITLES_CLIENT: Record<string, string> = {
   repos: 'Repositórios',
   commands: 'Terminal',
   utils: 'Utilitários & Ferramentas',
-  skills: 'Skills & Comandos Claude',
+  skills: 'Agents & Skills',
   cursos: 'Cursos & Plataformas de Ensino',
 };
 
