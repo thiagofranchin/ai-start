@@ -20,17 +20,17 @@ Dashboard pessoal que cataloga ferramentas, APIs, IAs, comandos e recursos do ec
 src/
 ├── app/
 │   ├── layout.tsx              # Root Layout: SearchProvider + Sidebar + TopBar + children
-│   ├── page.tsx                # Home: welcome + 8 stat cards (contadores por seção)
+│   ├── page.tsx                # Home: welcome + 7 stat cards (contadores por seção)
 │   ├── globals.css             # Reset, variáveis CSS, estilos de cards/sections, animações, responsive
 │   ├── loading.tsx             # Suspense fallback: "⏳ Carregando..."
 │   ├── not-found.tsx           # 404: "Página não encontrada" com link para home
 │   ├── error.tsx               # Error Boundary: erro inesperado com botão reset()
 │   └── [section]/
-│       └── page.tsx            # Rota dinâmica — 8 seções (ais, apis, repos, commands, utils, skills, cursos, cripto)
+│       └── page.tsx            # Rota dinâmica — 7 seções (ais, repos, commands, utils, skills, cursos, cripto)
 ├── components/
 │   ├── cards/
-│   │   ├── Card.tsx            # Card genérico com link overlay e color variant
-│   │   ├── APICard.tsx         # Card destacado para APIs (borda accent + tag)
+│   │   ├── Card.tsx            # Card genérico com link overlay, color variant e múltiplos links extras
+│   │   ├── AICard.tsx          # Card de IA — botão primário "Abrir chat", links secundários, pulse indicator e stagger via `index`
 │   │   ├── CmdCard.tsx         # Card de comando com shell + CopyButton
 │   │   └── StatCard.tsx        # Card de estatística da home (sem link overlay)
 │   ├── layout/
@@ -52,18 +52,17 @@ src/
 │       └── CopyButton.tsx      # Client Component — clipboard API com feedback "✓ Copiado" e fallback
 ├── data/
 │   ├── index.ts                # Barrel export de todos os arrays
-│   ├── ais.ts                  # 4 IAs (Claude, ChatGPT, Gemini, DeepSeek)
-│   ├── apis.ts                 # 2 APIs (Vercel AI SDK, OpenRouter)
-│   ├── repos.ts                # 2 repositórios (Claude Code, t3.chat)
+│   ├── ais.ts                  # 5 IAs (Claude, ChatGPT, Gemini, DeepSeek Chat, Grok) — cada uma com chat + links extras de platform/ferramentas
+│   ├── repos.ts                # 2 repositórios (Free Claude Code, Awesome DeepSeek Agent)
 │   ├── cmds.ts                 # 5 comandos (agrupados "Free Claude Code")
 │   ├── skills.ts               # 10 skills/plugins
 │   ├── cursos.ts               # 4 cursos/plataformas
 │   ├── utils.ts                # 2 utilitários
 │   └── cripto.ts               # 23 itens em 9 categorias (Swap, DeFi, Lending, etc.)
 ├── types/
-│   └── index.ts                # Interfaces: BaseItem, AIItem, APIItem, RepoItem, CmdItem, SkillItem, CursoItem, UtilItem, CriptoItem, CriptoPrices, SectionId
+│   └── index.ts                # Interfaces: BaseItem, LinkItem, AIItem, RepoItem, CmdItem, SkillItem, CursoItem, UtilItem, CriptoItem, CriptoPrices, SectionId
 └── lib/
-    ├── constants.ts             # SECTION_TITLES, NAV_ITEMS (9 seções com labels e ícones)
+    ├── constants.ts             # SECTION_TITLES, NAV_ITEMS (8 seções com labels e ícones)
     └── utils.ts                 # formatPrice, formatUpdateTime, formatSidebarDate
 ```
 
@@ -77,7 +76,7 @@ A estratégia é **Server Components por padrão, Client Components apenas onde 
 |-----------|------|--------|
 | `page.tsx` (home + [section]) | Server | Dados estáticos, sem interatividade |
 | `layout.tsx` | Server | Estrutura estática |
-| `Card`, `APICard`, `CmdCard`, `StatCard` | Server | Apenas renderizam props |
+| `Card`, `AICard`, `CmdCard`, `StatCard` | Server | Apenas renderizam props |
 | `PageSection`, `CommandGroup` | Server | Wrappers puros |
 | `Sidebar` | Client | `useState` (mobile toggle), `usePathname` (active state) |
 | `TopBar` | Client | `usePathname` (título), `useSearch()` (input de busca) |
@@ -101,10 +100,10 @@ SearchProvider (contexto: query + setQuery)
 
 ### Rotas Dinâmicas
 
-As 8 seções de conteúdo usam `/[section]/page.tsx` com `generateStaticParams()`:
+As 7 seções de conteúdo usam `/[section]/page.tsx` com `generateStaticParams()`:
 
 ```ts
-const VALID_SECTIONS = ['ais', 'apis', 'repos', 'commands', 'utils', 'skills', 'cursos', 'cripto'];
+const VALID_SECTIONS = ['ais', 'repos', 'commands', 'utils', 'skills', 'cursos', 'cripto'];
 ```
 
 Slugs inválidos acionam `notFound()`. A seção `cripto` tem tratamento especial — renderiza `<CriptoPage />` (Client Component com tema terminal), enquanto as outras usam `<SectionContent />`.
@@ -160,13 +159,12 @@ npm run lint
 
 | Seção | Rota | Items | Tipo de Card |
 |--------|------|-------|-------------|
-| Home (stats) | `/` | 8 stats | StatCard |
-| IAs | `/ais` | 4 | Card |
-| APIs | `/apis` | 2 | APICard |
-| Repositórios | `/repos` | 2 | Card (com extraUrl) |
+| Home (stats) | `/` | 7 stats | StatCard |
+| IAs | `/ais` | 5 | AICard (chat + links extras de platform/ferramentas) |
+| Repositórios | `/repos` | 2 | Card (com links) |
 | Comandos | `/commands` | 5 | CmdCard (agrupados) |
 | Utilitários | `/utils` | 2 | Card |
-| Skills | `/skills` | 10 | Card (com extraUrl) |
+| Skills | `/skills` | 10 | Card (com links) |
 | Cursos | `/cursos` | 4 | Card |
 | Cripto | `/cripto` | 23 + ticker | TermCard + CryptoTicker |
 

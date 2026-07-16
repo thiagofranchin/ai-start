@@ -5,12 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '@/lib/constants';
 import { formatSidebarDate } from '@/lib/utils';
-import { ais, apis, repos, cmds, skills, cursos, utils, cripto } from '@/data';
+import { ais, repos, cmds, skills, cursos, utils, cripto } from '@/data';
 import styles from './Sidebar.module.css';
 
 const COUNTS: Record<string, number> = {
   ais: ais.length,
-  apis: apis.length,
   repos: repos.length,
   commands: cmds.length,
   skills: skills.length,

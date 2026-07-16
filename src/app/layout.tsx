@@ -20,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'ai-start — Launchpad Dashboard',
-  description: 'Hub pessoal para acesso rápido a IAs, APIs, repositórios e comandos do dia a dia.',
+  description: 'Hub pessoal para acesso rápido a IAs, repositórios e comandos do dia a dia.',
   icons: {
     icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🚀</text></svg>',
   },

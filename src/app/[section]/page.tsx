@@ -3,7 +3,7 @@ import SectionContent from '@/components/sections/SectionContent';
 import CriptoPage from '@/components/sections/CriptoPage';
 import type { SectionId } from '@/types';
 
-const VALID_SECTIONS: SectionId[] = ['ais', 'apis', 'repos', 'commands', 'utils', 'skills', 'cursos', 'cripto'];
+const VALID_SECTIONS: SectionId[] = ['ais', 'repos', 'commands', 'utils', 'skills', 'cursos', 'cripto'];
 
 export function generateStaticParams() {
   return VALID_SECTIONS.map((section) => ({ section }));

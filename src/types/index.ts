@@ -10,13 +10,17 @@ export interface BaseItem extends BaseItemFields {
   url: string;
 }
 
-export interface AIItem extends BaseItem {}
+export interface LinkItem {
+  url: string;
+  label: string;
+}
 
-export interface APIItem extends BaseItem {}
+export interface AIItem extends BaseItem {
+  links?: LinkItem[];
+}
 
 export interface RepoItem extends BaseItem {
-  extraUrl?: string;
-  extraLabel?: string;
+  links?: LinkItem[];
 }
 
 export interface CmdItem extends BaseItemFields {
@@ -26,8 +30,7 @@ export interface CmdItem extends BaseItemFields {
 }
 
 export interface SkillItem extends BaseItem {
-  extraUrl?: string;
-  extraLabel?: string;
+  links?: LinkItem[];
 }
 
 export interface CursoItem extends BaseItem {}
@@ -42,7 +45,6 @@ export interface CriptoItem extends BaseItem {
 export type SectionId =
   | 'home'
   | 'ais'
-  | 'apis'
   | 'repos'
   | 'commands'
   | 'utils'

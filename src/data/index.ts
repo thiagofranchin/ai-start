@@ -1,5 +1,4 @@
 export { ais } from './ais';
-export { apis } from './apis';
 export { repos } from './repos';
 export { cmds } from './cmds';
 export { skills } from './skills';

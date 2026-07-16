@@ -1,8 +1,8 @@
 'use client';
 
-import { ais, apis, repos, cmds, skills, cursos, utils } from '@/data';
+import { ais, repos, cmds, skills, cursos, utils } from '@/data';
 import Card from '@/components/cards/Card';
-import APICard from '@/components/cards/APICard';
+import AICard from '@/components/cards/AICard';
 import CmdCard from '@/components/cards/CmdCard';
 import PageSection from '@/components/sections/PageSection';
 import CommandGroup from '@/components/sections/CommandGroup';
@@ -11,7 +11,6 @@ import type { SectionId } from '@/types';
 
 const SECTION_EMOJIS: Record<string, string> = {
   ais: '🤖',
-  apis: '🔌',
   repos: '📦',
   commands: '⌨️',
   utils: '🧰',
@@ -21,7 +20,6 @@ const SECTION_EMOJIS: Record<string, string> = {
 
 const SECTION_TITLES_CLIENT: Record<string, string> = {
   ais: 'Inteligências Artificiais',
-  apis: 'APIs & Plataformas',
   repos: 'Repositórios',
   commands: 'Terminal',
   utils: 'Utilitários & Ferramentas',
@@ -36,7 +34,7 @@ interface SectionContentProps {
 export default function SectionContent({ section }: SectionContentProps) {
   const title = SECTION_TITLES_CLIENT[section] || section;
   const emoji = SECTION_EMOJIS[section] || '📄';
-  const wide = section === 'ais' || section === 'apis' || section === 'repos' || section === 'commands' || section === 'skills' || section === 'cursos';
+  const wide = section === 'ais' || section === 'repos' || section === 'commands' || section === 'skills' || section === 'cursos';
 
   return (
     <PageSection emoji={emoji} title={title} count={getCount(section)} wide={wide}>
@@ -48,7 +46,6 @@ export default function SectionContent({ section }: SectionContentProps) {
 function getCount(section: string): number {
   switch (section) {
     case 'ais': return ais.length;
-    case 'apis': return apis.length;
     case 'repos': return repos.length;
     case 'commands': return cmds.length;
     case 'skills': return skills.length;
@@ -61,16 +58,9 @@ function getCount(section: string): number {
 function renderCards(section: string) {
   switch (section) {
     case 'ais':
-      return ais.map((item) => (
+      return ais.map((item, i) => (
         <SearchFilter key={item.name} searchText={`${item.name} ${item.desc}`}>
-          <Card {...item} />
-        </SearchFilter>
-      ));
-
-    case 'apis':
-      return apis.map((item) => (
-        <SearchFilter key={item.name} searchText={`${item.name} ${item.desc}`}>
-          <APICard {...item} tag="API" />
+          <AICard {...item} index={i} />
         </SearchFilter>
       ));
 
