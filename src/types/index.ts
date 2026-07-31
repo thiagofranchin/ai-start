@@ -50,7 +50,29 @@ export type SectionId =
   | 'utils'
   | 'skills'
   | 'cursos'
-  | 'cripto';
+  | 'cripto'
+  | 'code';
+
+// ===== CODE (tutoriais de versionamento) =====
+export type CodeTopicId = 'python' | 'node';
+
+export interface CodeCommand {
+  cmd: string;
+  comment: string;
+}
+
+export interface CodeCommandGroup {
+  title: string;
+  commands: CodeCommand[];
+}
+
+export interface CodeTopic {
+  id: CodeTopicId;
+  label: string;
+  icon: string;
+  intro: string;
+  groups: CodeCommandGroup[];
+}
 
 // ===== PREÇOS CRIPTO =====
 export interface CriptoPrices {

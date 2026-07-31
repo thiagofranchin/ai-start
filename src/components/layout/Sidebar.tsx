@@ -29,7 +29,28 @@ export default function Sidebar() {
 
   const close = useCallback(() => setOpen(false), []);
 
-  const currentSection = pathname === '/' ? 'home' : pathname.slice(1);
+  const segments = pathname.split('/').filter(Boolean);
+  const currentSection = pathname === '/' ? 'home' : segments[0];
+  const currentSubSection = segments[1];
+
+  const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    NAV_ITEMS.forEach((item) => {
+      if (item.children) initial[item.id] = currentSection === item.id;
+    });
+    return initial;
+  });
+
+  const toggleExpanded = useCallback((id: string) => {
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+  }, []);
+
+  // Abre automaticamente o submenu ao navegar direto para uma de suas rotas
+  useEffect(() => {
+    if (NAV_ITEMS.some((item) => item.id === currentSection && item.children)) {
+      setExpanded((prev) => ({ ...prev, [currentSection]: true }));
+    }
+  }, [currentSection]);
 
   // Fecha o sidebar ao navegar (mobile)
   useEffect(() => {
@@ -62,19 +83,60 @@ export default function Sidebar() {
             const isActive = currentSection === item.id;
             const href = item.id === 'home' ? '/' : `/${item.id}`;
             const count = COUNTS[item.id];
+            const hasChildren = !!item.children;
+            const isExpanded = hasChildren && !!expanded[item.id];
 
             return (
-              <Link
-                key={item.id}
-                href={href}
-                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
-              >
-                <span className={styles.icon}>{item.icon}</span>
-                {item.label}
-                {count !== undefined && (
-                  <span className={styles.badge}>{count}</span>
+              <div key={item.id}>
+                {hasChildren ? (
+                  <button
+                    type="button"
+                    className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                    onClick={() => toggleExpanded(item.id)}
+                    aria-expanded={isExpanded}
+                    aria-controls={`nav-children-${item.id}`}
+                  >
+                    <span className={styles.icon}>{item.icon}</span>
+                    {item.label}
+                    <span className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ''}`}>
+                      ›
+                    </span>
+                  </button>
+                ) : (
+                  <Link
+                    href={href}
+                    className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                  >
+                    <span className={styles.icon}>{item.icon}</span>
+                    {item.label}
+                    {count !== undefined && (
+                      <span className={styles.badge}>{count}</span>
+                    )}
+                  </Link>
                 )}
-              </Link>
+                {hasChildren && (
+                  <div
+                    id={`nav-children-${item.id}`}
+                    className={`${styles.navChildrenWrapper} ${isExpanded ? styles.open : ''}`}
+                  >
+                    <div className={styles.navChildren}>
+                      {item.children!.map((child) => {
+                        const isChildActive = isActive && currentSubSection === child.id;
+                        return (
+                          <Link
+                            key={child.id}
+                            href={`/${item.id}/${child.id}`}
+                            className={`${styles.navChildItem} ${isChildActive ? styles.active : ''}`}
+                          >
+                            <span className={styles.icon}>{child.icon}</span>
+                            {child.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>

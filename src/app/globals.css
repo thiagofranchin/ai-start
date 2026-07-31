@@ -620,6 +620,27 @@ a {
   gap: 10px;
 }
 
+/* ===== CODE COMMAND ROW ===== */
+.code-topic-intro {
+  font-size: .82rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  max-width: 640px;
+}
+
+.code-cmd-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.code-cmd-comment {
+  font-size: .74rem;
+  color: var(--text-muted);
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  padding-left: 2px;
+}
+
 /* ===== CATEGORY FILTER BAR ===== */
 .filter-bar {
   display: flex;

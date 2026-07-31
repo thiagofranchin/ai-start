@@ -5,3 +5,4 @@ export { skills } from './skills';
 export { cursos } from './cursos';
 export { utils } from './utils';
 export { cripto } from './cripto';
+export { codeTopics } from './code';

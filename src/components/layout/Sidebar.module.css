@@ -56,6 +56,7 @@
   padding: 9px 10px;
   border-radius: var(--radius-xs);
   color: var(--text-secondary);
+  font-family: inherit;
   font-size: .87rem;
   font-weight: 500;
   cursor: pointer;
@@ -95,6 +96,74 @@
 .navItem.active .badge {
   background: rgba(255,255,255,.2);
   color: #fff;
+}
+
+.chevron {
+  margin-left: auto;
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform var(--transition), color var(--transition);
+}
+
+.navItem.active .chevron {
+  color: rgba(255, 255, 255, .8);
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+  color: var(--cyan);
+}
+
+.navChildrenWrapper {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .26s cubic-bezier(.4, 0, .2, 1), opacity .18s ease;
+}
+
+.navChildrenWrapper.open {
+  max-height: 120px;
+  opacity: 1;
+  transition: max-height .26s cubic-bezier(.4, 0, .2, 1), opacity .22s ease .04s;
+}
+
+.navChildren {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  padding: 2px 0 6px 12px;
+  border-left: 1px solid var(--border-subtle);
+}
+
+.navChildItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+  font-size: .8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.navChildItem:hover { background: var(--bg-card); color: var(--text-primary); }
+
+.navChildItem.active {
+  background: linear-gradient(90deg, rgba(139,109,255,.24), rgba(93,229,255,.06));
+  color: #fff;
+  box-shadow: inset 2px 0 0 var(--cyan);
+}
+
+.navChildItem .icon {
+  font-size: .95rem;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .sidebarFooter {
