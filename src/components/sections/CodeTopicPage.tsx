@@ -12,6 +12,14 @@ export default function CodeTopicPage({ topic }: { topic: CodeTopic }) {
         <span className="count">{total} comandos</span>
       </div>
       <p className="code-topic-intro">{topic.intro}</p>
+      {topic.repoUrl && (
+        <div className="cmd-repo-ref">
+          📁{' '}
+          <a href={topic.repoUrl} target="_blank" rel="noopener noreferrer">
+            {topic.repoUrl}
+          </a>
+        </div>
+      )}
       {topic.groups.map((group) => (
         <div className="sub-section" key={group.title}>
           <div className="sub-section-header">

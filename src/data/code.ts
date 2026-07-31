@@ -72,4 +72,23 @@ export const codeTopics: CodeTopic[] = [
       },
     ],
   },
+  {
+    id: 'fcc',
+    label: 'Free Claude Code',
+    icon: '🆓',
+    intro: 'Comandos do Free Claude Code — ferramenta gratuita para rodar o Claude Code, Codex e outros agentes de IA direto do terminal.',
+    repoUrl: 'https://github.com/Alishahryar1/free-claude-code',
+    groups: [
+      {
+        title: 'Free Claude Code',
+        commands: [
+          { cmd: 'fcc-claude', comment: 'Inicia o Claude Code via Free Claude Code' },
+          { cmd: 'fcc-codex', comment: 'Inicia o Codex via Free Claude Code' },
+          { cmd: 'fcc-init', comment: 'Inicializa/configura o Free Claude Code no projeto atual' },
+          { cmd: 'fcc-server', comment: 'Sobe o servidor do Free Claude Code' },
+          { cmd: 'free-claude-code', comment: 'Comando principal do Free Claude Code' },
+        ],
+      },
+    ],
+  },
 ];

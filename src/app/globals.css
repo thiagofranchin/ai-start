@@ -464,43 +464,6 @@ a {
 }
 
 /* ===== COMMAND CARD ===== */
-.cmd-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  padding: 16px 20px;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.cmd-card:hover {
-  border-color: var(--border);
-}
-
-.cmd-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.cmd-info {
-  flex: 1;
-}
-
-.cmd-info h4 {
-  font-size: .9rem;
-  font-weight: 600;
-}
-
-.cmd-info p {
-  font-size: .75rem;
-  color: var(--text-secondary);
-  margin-top: 2px;
-}
-
 .cmd-repo-ref {
   font-size: .68rem;
   color: var(--text-muted);

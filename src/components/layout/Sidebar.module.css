@@ -125,7 +125,7 @@
 }
 
 .navChildrenWrapper.open {
-  max-height: 120px;
+  max-height: 160px;
   opacity: 1;
   transition: max-height .26s cubic-bezier(.4, 0, .2, 1), opacity .22s ease .04s;
 }

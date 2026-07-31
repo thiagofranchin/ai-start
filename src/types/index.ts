@@ -23,12 +23,6 @@ export interface RepoItem extends BaseItem {
   links?: LinkItem[];
 }
 
-export interface CmdItem extends BaseItemFields {
-  cmd: string;
-  group: string;
-  repoLink?: string;
-}
-
 export interface SkillItem extends BaseItem {
   links?: LinkItem[];
 }
@@ -46,7 +40,6 @@ export type SectionId =
   | 'home'
   | 'ais'
   | 'repos'
-  | 'commands'
   | 'utils'
   | 'skills'
   | 'cursos'
@@ -54,7 +47,7 @@ export type SectionId =
   | 'code';
 
 // ===== CODE (tutoriais de versionamento) =====
-export type CodeTopicId = 'python' | 'node';
+export type CodeTopicId = 'python' | 'node' | 'fcc';
 
 export interface CodeCommand {
   cmd: string;
@@ -71,6 +64,7 @@ export interface CodeTopic {
   label: string;
   icon: string;
   intro: string;
+  repoUrl?: string;
   groups: CodeCommandGroup[];
 }
 

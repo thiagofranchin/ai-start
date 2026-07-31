@@ -4,7 +4,7 @@ import CodeTopicPage from '@/components/sections/CodeTopicPage';
 import { codeTopics } from '@/data';
 import type { CodeTopicId } from '@/types';
 
-const VALID_TOPICS: CodeTopicId[] = ['python', 'node'];
+const VALID_TOPICS: CodeTopicId[] = ['python', 'node', 'fcc'];
 
 export function generateStaticParams() {
   return VALID_TOPICS.map((topic) => ({ topic }));

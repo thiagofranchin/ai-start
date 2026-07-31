@@ -1,18 +1,15 @@
 'use client';
 
-import { ais, repos, cmds, skills, cursos, utils } from '@/data';
+import { ais, repos, skills, cursos, utils } from '@/data';
 import Card from '@/components/cards/Card';
 import AICard from '@/components/cards/AICard';
-import CmdCard from '@/components/cards/CmdCard';
 import PageSection from '@/components/sections/PageSection';
-import CommandGroup from '@/components/sections/CommandGroup';
 import SearchFilter from '@/components/sections/SearchFilter';
 import type { SectionId } from '@/types';
 
 const SECTION_EMOJIS: Record<string, string> = {
   ais: '🤖',
   repos: '📦',
-  commands: '⌨️',
   utils: '🧰',
   skills: '🛠️',
   cursos: '📚',
@@ -21,7 +18,6 @@ const SECTION_EMOJIS: Record<string, string> = {
 const SECTION_TITLES_CLIENT: Record<string, string> = {
   ais: 'Inteligências Artificiais',
   repos: 'Repositórios',
-  commands: 'Terminal',
   utils: 'Utilitários & Ferramentas',
   skills: 'Agents & Skills',
   cursos: 'Cursos & Plataformas de Ensino',
@@ -34,7 +30,7 @@ interface SectionContentProps {
 export default function SectionContent({ section }: SectionContentProps) {
   const title = SECTION_TITLES_CLIENT[section] || section;
   const emoji = SECTION_EMOJIS[section] || '📄';
-  const wide = section === 'ais' || section === 'repos' || section === 'commands' || section === 'skills' || section === 'cursos';
+  const wide = section === 'ais' || section === 'repos' || section === 'skills' || section === 'cursos';
 
   return (
     <PageSection emoji={emoji} title={title} count={getCount(section)} wide={wide}>
@@ -47,7 +43,6 @@ function getCount(section: string): number {
   switch (section) {
     case 'ais': return ais.length;
     case 'repos': return repos.length;
-    case 'commands': return cmds.length;
     case 'skills': return skills.length;
     case 'cursos': return cursos.length;
     case 'utils': return utils.length;
@@ -70,9 +65,6 @@ function renderCards(section: string) {
           <Card {...item} />
         </SearchFilter>
       ));
-
-    case 'commands':
-      return renderCommandGroups();
 
     case 'skills':
       return skills.map((item) => (
@@ -98,32 +90,4 @@ function renderCards(section: string) {
     default:
       return null;
   }
-}
-
-function renderCommandGroups() {
-  const groups = new Map<string, typeof cmds>();
-  for (const cmd of cmds) {
-    const existing = groups.get(cmd.group) || [];
-    existing.push(cmd);
-    groups.set(cmd.group, existing);
-  }
-
-  return Array.from(groups.entries()).map(([group, items]) => (
-    <CommandGroup
-      key={group}
-      title={group}
-      count={items.length}
-      titleUrl={group === 'Free Claude Code' ? 'https://github.com/Alishahryar1/free-claude-code' : undefined}
-    >
-      {items.map((item) => (
-        <SearchFilter key={item.name} searchText={`${item.name} ${item.desc} ${item.cmd || ''}`}>
-          <CmdCard
-            name={item.name}
-            desc={item.desc}
-            cmd={item.cmd}
-          />
-        </SearchFilter>
-      ))}
-    </CommandGroup>
-  ));
 }
