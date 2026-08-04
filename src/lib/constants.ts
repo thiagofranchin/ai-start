@@ -9,6 +9,7 @@ export const SECTION_TITLES: Record<SectionId, string> = {
   cursos: 'Cursos & Plataformas de Ensino',
   cripto: 'Cripto & DeFi',
   code: 'Code',
+  jobs: 'Oportunidades de Trabalho',
 };
 
 export interface NavChild {
@@ -42,4 +43,5 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'utils', label: 'Utilitários & Ferramentas', icon: '🧰' },
   { id: 'cursos', label: 'Cursos & Plataformas', icon: '📚' },
   { id: 'cripto', label: 'Cripto & DeFi', icon: '₿' },
+  { id: 'jobs', label: 'Oportunidades', icon: '💼' },
 ];

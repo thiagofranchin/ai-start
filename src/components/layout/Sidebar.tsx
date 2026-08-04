@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '@/lib/constants';
 import { formatSidebarDate } from '@/lib/utils';
-import { ais, repos, skills, cursos, utils, cripto } from '@/data';
+import { ais, repos, skills, cursos, utils, cripto, jobs } from '@/data';
 import styles from './Sidebar.module.css';
 
 const COUNTS: Record<string, number> = {
@@ -15,6 +15,7 @@ const COUNTS: Record<string, number> = {
   cursos: cursos.length,
   utils: utils.length,
   cripto: cripto.length,
+  jobs: jobs.length,
 };
 
 export default function Sidebar() {

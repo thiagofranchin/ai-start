@@ -1,5 +1,5 @@
 import StatCard from '@/components/cards/StatCard';
-import { ais, repos, skills, cursos, utils, cripto } from '@/data';
+import { ais, repos, skills, cursos, utils, cripto, jobs } from '@/data';
 
 const stats = [
   { icon: '🤖', value: ais.length, label: 'Inteligências Artificiais', color: 'purple' as const },
@@ -7,6 +7,7 @@ const stats = [
   { icon: '🧰', value: utils.length, label: 'Utilitários', color: 'orange' as const },
   { icon: '🛠️', value: skills.length, label: 'Skills', color: 'purple' as const },
   { icon: '📚', value: cursos.length, label: 'Cursos', color: 'cyan' as const },
+  { icon: '💼', value: jobs.length, label: 'Oportunidades', color: 'green' as const },
   { icon: '🪙', value: cripto.length, label: 'Cripto & DeFi', color: 'red' as const },
 ];
 

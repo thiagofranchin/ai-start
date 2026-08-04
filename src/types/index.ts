@@ -44,7 +44,8 @@ export type SectionId =
   | 'skills'
   | 'cursos'
   | 'cripto'
-  | 'code';
+  | 'code'
+  | 'jobs';
 
 // ===== CODE (tutoriais de versionamento) =====
 export type CodeTopicId = 'python' | 'node' | 'fcc';
