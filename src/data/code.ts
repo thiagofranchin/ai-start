@@ -5,8 +5,20 @@ export const codeTopics: CodeTopic[] = [
     id: 'python',
     label: 'Python',
     icon: '🐍',
-    intro: 'Versionamento de Python com pyenv — instalação no macOS e no WSL, e o dia a dia de troca de versão.',
+    intro: 'Versionamento de Python com pyenv — instalação no macOS, WSL e Windows, e o dia a dia de troca de versão.',
     groups: [
+      {
+        title: 'Instalar pyenv-win — Windows (PowerShell)',
+        commands: [
+          { cmd: 'Remove-Item -Recurse -Force "$env:USERPROFILE\\.pyenv" -ErrorAction SilentlyContinue', comment: 'Remove uma instalação anterior incompleta (ex.: falha no módulo Expand-Archive) — pule se for a primeira instalação' },
+          { cmd: 'git clone https://github.com/pyenv-win/pyenv-win.git "$HOME\\.pyenv"', comment: 'Clona o pyenv-win via Git — evita o bug do instalador oficial (.ps1), que depende do módulo Expand-Archive e pode falhar silenciosamente; não exige pip nem Python previamente instalado' },
+          { cmd: '[System.Environment]::SetEnvironmentVariable(\'PYENV\',$env:USERPROFILE + "\\.pyenv\\pyenv-win\\","User")', comment: 'Define a variável de ambiente PYENV apontando para a instalação' },
+          { cmd: '[System.Environment]::SetEnvironmentVariable(\'PYENV_ROOT\',$env:USERPROFILE + "\\.pyenv\\pyenv-win\\","User")', comment: 'Define PYENV_ROOT, exigida pelo pyenv-win' },
+          { cmd: '[System.Environment]::SetEnvironmentVariable(\'PYENV_HOME\',$env:USERPROFILE + "\\.pyenv\\pyenv-win\\","User")', comment: 'Define PYENV_HOME, exigida pelo pyenv-win' },
+          { cmd: '[System.Environment]::SetEnvironmentVariable(\'Path\', $env:USERPROFILE + "\\.pyenv\\pyenv-win\\bin;" + $env:USERPROFILE + "\\.pyenv\\pyenv-win\\shims;" + [System.Environment]::GetEnvironmentVariable(\'Path\', "User"),"User")', comment: 'Coloca o pyenv-win no PATH do usuário' },
+          { cmd: '$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")', comment: 'Recarrega o PATH na sessão atual (ou abra um novo PowerShell)' },
+        ],
+      },
       {
         title: 'Instalar pyenv — macOS (Homebrew)',
         commands: [
@@ -29,7 +41,7 @@ export const codeTopics: CodeTopic[] = [
         ],
       },
       {
-        title: 'Gerenciar versões do Python',
+        title: 'Gerenciar versões do Python (macOS, WSL e Windows)',
         commands: [
           { cmd: 'pyenv --version', comment: 'Confirma que o pyenv em si foi instalado corretamente' },
           { cmd: 'pyenv install --list', comment: 'Lista todas as versões disponíveis para instalação' },

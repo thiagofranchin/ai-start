@@ -68,6 +68,7 @@ a {
 .main-content {
   margin-left: var(--sidebar-width);
   flex: 1;
+  min-width: 0;
   min-height: 100vh;
   padding: calc(var(--marketbar-height) + 30px) clamp(24px, 4vw, 58px) 70px;
 }
@@ -488,6 +489,8 @@ a {
   gap: 8px;
   margin-top: 4px;
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .cmd-shell .prompt {
@@ -498,6 +501,7 @@ a {
 
 .cmd-shell .cmd-text {
   flex: 1;
+  min-width: 0;
   overflow-x: auto;
   white-space: nowrap;
 }
@@ -595,6 +599,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 }
 
 .code-cmd-comment {
