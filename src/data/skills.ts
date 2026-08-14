@@ -12,4 +12,5 @@ export const skills: SkillItem[] = [
   { name: 'GSD 2', url: 'https://github.com/gsd-build/gsd-2', desc: 'GSD 2 — nova versão do framework de produtividade', icon: '🚀', color: 'orange' },
   { name: 'Karpathy-Inspired', url: 'https://github.com/forrestchang/andrej-karpathy-skills', desc: 'Skills inspiradas por Andrej Karpathy — vídeo incluso', icon: '🧠', color: 'purple', links: [{ url: 'https://youtu.be/oKuwnz4Gz10?si=Aa43b5OEEnchJ8Jw', label: '🎬 Vídeo' }] },
   { name: 'Context7', url: 'https://context7.com/', desc: 'Documentação atualizada de bibliotecas direto no contexto do agente', icon: '📚', color: 'cyan' },
+  { name: 'NVIDIA Skills', url: 'https://build.nvidia.com/skills', desc: 'Catalogo de skills NVIDIA Build para desenvolvimento com agentes', icon: '/icons/nvidia.svg', color: 'green' },
 ];

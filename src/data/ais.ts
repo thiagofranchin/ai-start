@@ -43,4 +43,11 @@ export const ais: AIItem[] = [
     icon: '/icons/grok.svg',
     color: 'orange',
   },
+  {
+    name: 'NVIDIA',
+    desc: 'Plataforma de IA NVIDIA',
+    icon: '/icons/nvidia.svg',
+    color: 'green',
+    links: [{ url: 'https://build.nvidia.com/settings/api-keys', label: '⚙️ Platform' }],
+  },
 ];

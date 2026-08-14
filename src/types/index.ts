@@ -15,7 +15,8 @@ export interface LinkItem {
   label: string;
 }
 
-export interface AIItem extends BaseItem {
+export interface AIItem extends BaseItemFields {
+  url?: string;
   links?: LinkItem[];
 }
 

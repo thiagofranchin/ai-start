@@ -14,7 +14,7 @@ type AICardStyle = React.CSSProperties & { '--ai-accent': string };
 
 interface AICardProps {
   name: string;
-  url: string;
+  url?: string;
   desc: string;
   icon: string;
   color: 'purple' | 'green' | 'orange' | 'blue' | 'red' | 'cyan';
@@ -38,9 +38,11 @@ export default function AICard({ name, url, desc, icon, color, links, index = 0 
       <h4>{name}</h4>
       <p>{desc}</p>
       <div className="ai-card-actions">
-        <Link href={url} target="_blank" rel="noopener noreferrer" className="ai-card-primary">
-          💬 Abrir chat
-        </Link>
+        {url && (
+          <Link href={url} target="_blank" rel="noopener noreferrer" className="ai-card-primary">
+            💬 Abrir chat
+          </Link>
+        )}
         {links && links.length > 0 && (
           <div className="ai-card-secondary">
             {links.map((link) => (
