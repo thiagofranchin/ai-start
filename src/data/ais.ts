@@ -7,7 +7,7 @@ export const ais: AIItem[] = [
     desc: 'Assistente IA da Anthropic',
     icon: '/icons/claude.svg',
     color: 'purple',
-    links: [{ url: 'https://platform.claude.com/', label: '⚙️ Platform' }],
+    links: [{ url: 'https://platform.claude.com/', label: '⚙️ API' }],
   },
   {
     name: 'ChatGPT',
@@ -15,7 +15,7 @@ export const ais: AIItem[] = [
     desc: 'Assistente IA da OpenAI',
     icon: '/icons/chatgpt.svg',
     color: 'green',
-    links: [{ url: 'https://platform.openai.com/home', label: '⚙️ Platform' }],
+    links: [{ url: 'https://platform.openai.com/home', label: '⚙️ API' }],
   },
   {
     name: 'Gemini',
@@ -34,7 +34,7 @@ export const ais: AIItem[] = [
     desc: 'Assistente IA da DeepSeek',
     icon: '/icons/deepseek.svg',
     color: 'cyan',
-    links: [{ url: 'https://platform.deepseek.com/usage', label: '⚙️ Platform' }],
+    links: [{ url: 'https://platform.deepseek.com/usage', label: '⚙️ API' }],
   },
   {
     name: 'Grok',
@@ -48,27 +48,27 @@ export const ais: AIItem[] = [
     desc: 'Plataforma de IA NVIDIA',
     icon: '/icons/nvidia.svg',
     color: 'green',
-    links: [{ url: 'https://build.nvidia.com/settings/api-keys', label: '⚙️ Platform' }],
+    links: [{ url: 'https://build.nvidia.com/settings/api-keys', label: '⚙️ API' }],
   },
   {
     name: 'Infura',
     desc: 'API e infraestrutura Web3 para Ethereum e IPFS',
     icon: '/icons/infura.svg',
     color: 'orange',
-    links: [{ url: 'https://app.infura.io/', label: '⚙️ Platform' }],
+    links: [{ url: 'https://app.infura.io/', label: '⚙️ API' }],
   },
   {
     name: 'Dune',
     desc: 'Análise e dashboards de dados on-chain',
     icon: '/icons/dune.svg',
     color: 'blue',
-    links: [{ url: 'https://dune.com/', label: '⚙️ Platform' }],
+    links: [{ url: 'https://dune.com/', label: '⚙️ API' }],
   },
   {
     name: 'FMP',
     desc: 'API de dados financeiros e fundamentos de empresas',
     icon: '/icons/fmp.svg',
     color: 'cyan',
-    links: [{ url: 'https://site.financialmodelingprep.com/developer/docs/dashboard', label: '⚙️ Platform' }],
+    links: [{ url: 'https://site.financialmodelingprep.com/developer/docs/dashboard', label: '⚙️ API' }],
   },
 ];

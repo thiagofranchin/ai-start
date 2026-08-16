@@ -17,11 +17,11 @@ const SECTION_EMOJIS: Record<string, string> = {
 };
 
 const SECTION_TITLES_CLIENT: Record<string, string> = {
-  ais: 'Inteligências Artificiais',
+  ais: 'IAs & APIs',
   repos: 'Repositórios',
   utils: 'Utilitários & Ferramentas',
   skills: 'Agents & Skills',
-  cursos: 'Cursos & Plataformas de Ensino',
+  cursos: 'Cursos',
   jobs: 'Oportunidades de Trabalho',
 };
 

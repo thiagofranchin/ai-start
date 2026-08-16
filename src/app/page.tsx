@@ -2,7 +2,7 @@ import StatCard from '@/components/cards/StatCard';
 import { ais, repos, skills, cursos, utils, cripto, jobs } from '@/data';
 
 const stats = [
-  { icon: '🤖', value: ais.length, label: 'Inteligências Artificiais', color: 'purple' as const },
+  { icon: '🤖', value: ais.length, label: 'IAs & APIs', color: 'purple' as const },
   { icon: '📦', value: repos.length, label: 'Repositórios', color: 'green' as const },
   { icon: '🧰', value: utils.length, label: 'Utilitários', color: 'orange' as const },
   { icon: '🛠️', value: skills.length, label: 'Skills', color: 'purple' as const },

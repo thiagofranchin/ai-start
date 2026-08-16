@@ -2,11 +2,11 @@ import { CodeTopicId, SectionId } from '@/types';
 
 export const SECTION_TITLES: Record<SectionId, string> = {
   home: 'Início',
-  ais: 'Inteligências Artificiais',
+  ais: 'IAs & APIs',
   repos: 'Repositórios',
   utils: 'Utilitários & Ferramentas',
   skills: 'Agents & Skills',
-  cursos: 'Cursos & Plataformas de Ensino',
+  cursos: 'Cursos',
   cripto: 'Cripto & DeFi',
   code: 'Code',
   jobs: 'Oportunidades de Trabalho',
@@ -27,7 +27,7 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { id: 'home', label: 'Início', icon: '🏠' },
-  { id: 'ais', label: 'Inteligências Artificiais', icon: '🧠' },
+  { id: 'ais', label: 'IAs & APIs', icon: '🧠' },
   { id: 'skills', label: 'Agents & Skills', icon: '🛠️' },
   { id: 'repos', label: 'Repositórios', icon: '📦' },
   {
@@ -41,7 +41,7 @@ export const NAV_ITEMS: NavItem[] = [
     ],
   },
   { id: 'utils', label: 'Utilitários & Ferramentas', icon: '🧰' },
-  { id: 'cursos', label: 'Cursos & Plataformas', icon: '📚' },
+  { id: 'cursos', label: 'Cursos', icon: '📚' },
   { id: 'cripto', label: 'Cripto & DeFi', icon: '₿' },
   { id: 'jobs', label: 'Oportunidades', icon: '💼' },
 ];
