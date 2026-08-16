@@ -50,4 +50,25 @@ export const ais: AIItem[] = [
     color: 'green',
     links: [{ url: 'https://build.nvidia.com/settings/api-keys', label: '⚙️ Platform' }],
   },
+  {
+    name: 'Infura',
+    desc: 'API e infraestrutura Web3 para Ethereum e IPFS',
+    icon: '/icons/infura.svg',
+    color: 'orange',
+    links: [{ url: 'https://app.infura.io/', label: '⚙️ Platform' }],
+  },
+  {
+    name: 'Dune',
+    desc: 'Análise e dashboards de dados on-chain',
+    icon: '/icons/dune.svg',
+    color: 'blue',
+    links: [{ url: 'https://dune.com/', label: '⚙️ Platform' }],
+  },
+  {
+    name: 'FMP',
+    desc: 'API de dados financeiros e fundamentos de empresas',
+    icon: '/icons/fmp.svg',
+    color: 'cyan',
+    links: [{ url: 'https://site.financialmodelingprep.com/developer/docs/dashboard', label: '⚙️ Platform' }],
+  },
 ];
