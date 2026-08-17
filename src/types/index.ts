@@ -28,9 +28,9 @@ export interface SkillItem extends BaseItem {
   links?: LinkItem[];
 }
 
-export interface CursoItem extends BaseItem {}
+export type CursoItem = BaseItem;
 
-export interface UtilItem extends BaseItem {}
+export type UtilItem = BaseItem;
 
 export interface CriptoItem extends BaseItem {
   categories: string[];
