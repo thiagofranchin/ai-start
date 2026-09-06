@@ -44,6 +44,13 @@ export const ais: AIItem[] = [
     color: 'orange',
   },
   {
+    name: "OpenRouter",
+    desc: "Plataforma unificada para acessar multiplos modelos de IA",
+    icon: "/icons/openrouter.svg",
+    color: "purple",
+    links: [{ url: "https://openrouter.ai/workspaces/default/keys", label: "API" }],
+  },
+  {
     name: 'NVIDIA',
     desc: 'Plataforma de IA NVIDIA',
     icon: '/icons/nvidia.svg',
@@ -70,5 +77,13 @@ export const ais: AIItem[] = [
     icon: '/icons/fmp.svg',
     color: 'cyan',
     links: [{ url: 'https://site.financialmodelingprep.com/developer/docs/dashboard', label: '⚙️ API' }],
+  },
+  {
+    name: "Z.ai",
+    url: "https://z.ai/",
+    desc: "Assistente IA da Z.ai",
+    icon: "/icons/zai.svg",
+    color: "red",
+    links: [{ url: "https://z.ai/manage-apikey/apikey-list", label: "API" }],
   },
 ];
