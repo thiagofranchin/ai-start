@@ -79,6 +79,13 @@ export const ais: AIItem[] = [
     links: [{ url: 'https://site.financialmodelingprep.com/developer/docs/dashboard', label: '⚙️ API' }],
   },
   {
+    name: 'CryptoQuant',
+    desc: 'Dados e análises on-chain para o mercado cripto',
+    icon: '₿',
+    color: 'orange',
+    links: [{ url: 'https://cryptoquant.com/settings/api', label: '⚙️ API' }],
+  },
+  {
     name: "Z.ai",
     url: "https://z.ai/",
     desc: "Assistente IA da Z.ai",

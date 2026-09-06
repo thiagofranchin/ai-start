@@ -34,7 +34,7 @@ src/
 ├── components/
 │   ├── cards/
 │   │   ├── Card.tsx            # Card genérico com link overlay, color variant e múltiplos links extras
-│   │   ├── AICard.tsx          # Card de IA/API — botão primário "Abrir chat", links secundários (ex.: API), pulse indicator e stagger via `index`
+│   │   ├── AICard.tsx          # Card de IA/API — botão opcional "Abrir chat", links secundários (ex.: API), pulse indicator e stagger via `index`
 │   │   └── StatCard.tsx        # Card de estatística da home (sem link overlay)
 │   ├── layout/
 │   │   ├── Sidebar.tsx         # Sidebar fixa: nav items com badges de contagem, submenu (Code), mobile toggle, overlay
@@ -58,7 +58,7 @@ src/
 │       └── CopyButton.tsx      # Client Component — clipboard API com feedback "✓ Copiado" e fallback
 ├── data/
 │   ├── index.ts                # Barrel export de todos os arrays
-│   ├── ais.ts                  # 9 IAs/APIs (Claude, ChatGPT, Gemini, DeepSeek, Grok, NVIDIA, Infura, Dune, FMP)
+│   ├── ais.ts                  # 12 IAs/APIs (Claude, ChatGPT, Gemini, DeepSeek, Grok, OpenRouter, NVIDIA, Infura, Dune, FMP, CryptoQuant, Z.ai)
 │   ├── repos.ts                # 2 repositórios (Free Claude Code, Awesome DeepSeek Agent)
 │   ├── code.ts                 # 3 tópicos de versionamento (Python/pyenv, Node/nvm, Free Claude Code)
 │   ├── skills.ts               # 12 skills/plugins
@@ -176,7 +176,7 @@ npm run lint
 | Seção | Rota | Items | Tipo de Card |
 |--------|------|-------|-------------|
 | Home (stats) | `/` | 7 stats | StatCard |
-| IAs & APIs | `/ais` | 9 | AICard (chat + botão API) |
+| IAs & APIs | `/ais` | 12 | AICard (chat opcional + links de API) |
 | Repositórios | `/repos` | 2 | Card (com links) |
 | Utilitários | `/utils` | 2 | Card |
 | Skills | `/skills` | 12 | Card (com links) |
