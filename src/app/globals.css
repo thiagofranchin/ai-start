@@ -721,3 +721,33 @@ body::before { content: ''; position: fixed; inset: 0; pointer-events: none; bac
 .home-stats-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
 @keyframes orbitFloat { 50% { transform: translate(-12px, 10px) rotate(5deg); } }
 @media (max-width: 600px) { .home-hero { min-height: 330px; padding: 30px 24px; } .hero-orbit { opacity: .45; right: -220px; } .hero-meta { flex-direction: column; gap: 7px; } }
+
+/* ===== Tooltip de descrição truncada (hover 2s, só desktop) ===== */
+.trunc-desc-wrapper { display: block; }
+
+/* Renderizado via portal no <body> — os cards têm backdrop-filter +
+   overflow: hidden, o que cortaria um tooltip posicionado dentro deles */
+.trunc-desc-tooltip {
+  position: fixed;
+  z-index: 9999;
+  padding: 9px 12px;
+  font-size: .74rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: rgba(11, 15, 28, .98);
+  border: 1px solid rgba(142, 157, 194, .3);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .55), 0 0 0 1px rgba(0, 0, 0, .2);
+  pointer-events: none;
+  white-space: normal;
+  overflow-wrap: break-word;
+  animation: tooltipFadeIn .16s ease-out;
+}
+
+.trunc-desc-tooltip.above { transform: translateY(-100%); }
+.trunc-desc-tooltip.below { transform: none; }
+
+@keyframes tooltipFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

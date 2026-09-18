@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { LinkItem } from '@/types';
+import TruncatedDescription from '@/components/ui/TruncatedDescription';
 
 const COLOR_RGB: Record<string, string> = {
   purple: '124,92,252',
@@ -36,7 +37,7 @@ export default function AICard({ name, url, desc, icon, color, links, index = 0 
         {isImage ? <img src={icon} alt={name} className="card-icon-img" /> : icon}
       </div>
       <h4>{name}</h4>
-      <p>{desc}</p>
+      <TruncatedDescription text={desc} />
       <div className="ai-card-actions">
         {url && (
           <Link href={url} target="_blank" rel="noopener noreferrer" className="ai-card-primary">

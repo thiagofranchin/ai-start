@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { LinkItem } from '@/types';
+import TruncatedDescription from '@/components/ui/TruncatedDescription';
 
 interface CardProps {
   name: string;
@@ -18,7 +19,7 @@ export default function Card({ name, url, desc, icon, color, links }: CardProps)
         {isImage ? <img src={icon} alt={name} className="card-icon-img" /> : icon}
       </div>
       <h4>{name}</h4>
-      <p>{desc}</p>
+      <TruncatedDescription text={desc} />
       <Link href={url} className="card-link" target="_blank" rel="noopener noreferrer" />
       {links && links.length > 0 && (
         <div className="card-links">
