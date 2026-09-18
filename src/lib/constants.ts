@@ -38,6 +38,7 @@ export const NAV_ITEMS: NavItem[] = [
       { id: 'python', label: 'Python', icon: '🐍' },
       { id: 'node', label: 'Node', icon: '🟢' },
       { id: 'fcc', label: 'Free Claude Code', icon: '🆓' },
+      { id: 'dsh', label: 'DeepSeek Harness', icon: '🤖' },
     ],
   },
   { id: 'utils', label: 'Utilitários & Ferramentas', icon: '🧰' },

@@ -103,4 +103,38 @@ export const codeTopics: CodeTopic[] = [
       },
     ],
   },
+  {
+    id: 'dsh',
+    label: 'DeepSeek Harness',
+    icon: '🤖',
+    intro: 'DeepSeek Harness (dsh) — launcher de perfis de agentes de IA da DeepSeek: interface web, headless, SDK e ACP, com plugins gerenciados por perfil.',
+    repoUrl: 'https://github.com/deepseek-ai/deepseek-harness',
+    groups: [
+      {
+        title: 'Rodar a aplicação web',
+        commands: [
+          { cmd: 'npx @deepseek-ai/dsh web', comment: 'Sobe a interface web do DeepSeek Harness (roda direto via npx, sem instalação)' },
+        ],
+      },
+      {
+        title: 'Perfis e modos de execução',
+        commands: [
+          { cmd: 'npx @deepseek-ai/dsh --profile <nome>', comment: 'Inicia o perfil nomeado a partir de $DSH_HOME/profiles/<nome>' },
+          { cmd: 'npx @deepseek-ai/dsh --profile headless "sua tarefa"', comment: 'Roda uma sessão única em modo headless, imprime a resposta final e sai' },
+          { cmd: 'npx @deepseek-ai/dsh --profile sdk', comment: 'Serve clientes SDK via JSON-RPC stdio' },
+          { cmd: 'npx @deepseek-ai/dsh --profile acp', comment: 'Serve clientes de automação via ACP stdio' },
+          { cmd: 'npx @deepseek-ai/dsh --profile <nome> --from-default-profile <template>', comment: 'Cria um novo perfil customizado a partir de um template oficial e já o inicia' },
+        ],
+      },
+      {
+        title: 'Utilitários',
+        commands: [
+          { cmd: 'npx @deepseek-ai/dsh --profile web --port 8080', comment: 'Passa argumentos para o app do perfil (ex.: --port pertence ao app web)' },
+          { cmd: 'npx @deepseek-ai/dsh plugin --profile <nome> <pnpm args>', comment: 'Gerencia os plugins de um perfil repassando comandos ao pnpm do perfil' },
+          { cmd: 'npx @deepseek-ai/dsh --dump-config', comment: 'Exibe a árvore de configuração composta sem iniciar o perfil' },
+          { cmd: 'npx @deepseek-ai/dsh --help', comment: 'Mostra a ajuda do próprio launcher dsh' },
+        ],
+      },
+    ],
+  },
 ];

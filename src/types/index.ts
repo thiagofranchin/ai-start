@@ -49,7 +49,8 @@ export type SectionId =
   | 'jobs';
 
 // ===== CODE (tutoriais de versionamento) =====
-export type CodeTopicId = 'python' | 'node' | 'fcc';
+export type CodeTopicId = 'python' | 'node' | 'fcc'
+  | 'dsh';
 
 export interface CodeCommand {
   cmd: string;
