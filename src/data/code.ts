@@ -104,6 +104,44 @@ export const codeTopics: CodeTopic[] = [
     ],
   },
   {
+    id: 'claude-codex',
+    label: 'Claude Code & Codex',
+    icon: '⌨️',
+    intro: 'Instalação, atualização e verificação do Claude Code e do OpenAI Codex pelo terminal no WSL (Ubuntu/Debian) — instaladores nativos oficiais, sem sudo e sem npm, com o PATH carregado via ~/.bashrc.',
+    groups: [
+      {
+        title: 'Instalar e atualizar — OpenAI Codex (WSL)',
+        commands: [
+          { cmd: 'curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh', comment: 'Instala o Codex CLI pelo script oficial em modo não interativo (CODEX_NON_INTERACTIVE=1) — não pede sudo nem exige Node/npm instalado' },
+          { cmd: 'source ~/.bashrc', comment: 'Recarrega o shell para o binário recém-instalado entrar no PATH (ou abra um novo terminal WSL)' },
+          { cmd: 'codex --version', comment: 'Confirma a versão do Codex que o terminal está realmente usando' },
+          { cmd: 'codex update', comment: 'Atualiza o Codex CLI para a última versão' },
+          { cmd: 'codex --version', comment: 'Confirma a versão depois da atualização' },
+        ],
+      },
+      {
+        title: 'Instalar e atualizar — Claude Code (WSL)',
+        commands: [
+          { cmd: 'curl -fsSL https://claude.ai/install.sh | bash', comment: 'Instala o Claude Code pelo instalador nativo oficial — sem npm e com auto-update já configurado' },
+          { cmd: 'source ~/.bashrc', comment: 'Recarrega o shell para o comando "claude" entrar no PATH (ou abra um novo terminal WSL)' },
+          { cmd: 'claude --version', comment: 'Confirma a versão do Claude Code que o terminal está realmente usando' },
+          { cmd: 'claude update', comment: 'Atualiza o Claude Code para a última versão' },
+          { cmd: 'claude --version', comment: 'Confirma a versão depois da atualização' },
+        ],
+      },
+      {
+        title: 'Diagnóstico no WSL',
+        commands: [
+          { cmd: 'which codex && which claude', comment: 'Mostra qual binário está ativo — WSL e Windows não compartilham instalação nem config, então isso evita rodar a versão errada' },
+          { cmd: 'codex doctor', comment: 'Diagnostica instalação, config, autenticação e runtime do Codex sem abrir sessão' },
+          { cmd: 'claude doctor', comment: 'Diagnóstico somente leitura da instalação do Claude Code: install health, settings e auto-updater' },
+          { cmd: 'npm install -g @openai/codex', comment: 'Reinstala o Codex via npm quando o "codex update" diz que atualizou mas o "codex --version" continua antigo (instalação global duplicada ou gerenciador diferente, caso comum no WSL)' },
+          { cmd: 'claude install stable', comment: 'Reinstala/repara o binário nativo do Claude Code na versão estável — aceita também "latest" ou um número de versão' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'dsh',
     label: 'DeepSeek Harness',
     icon: '🤖',

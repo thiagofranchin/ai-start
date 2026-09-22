@@ -117,22 +117,34 @@
   color: var(--cyan);
 }
 
+/* Colapsa por grid-template-rows (0fr → 1fr) em vez de max-height fixo:
+   a altura acompanha o conteúdo, então adicionar tópicos ao submenu nunca corta o último item. */
 .navChildrenWrapper {
-  max-height: 0;
-  overflow: hidden;
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
-  transition: max-height .26s cubic-bezier(.4, 0, .2, 1), opacity .18s ease;
+  visibility: hidden;
+  transition:
+    grid-template-rows .26s cubic-bezier(.4, 0, .2, 1),
+    opacity .18s ease,
+    visibility 0s linear .26s;
 }
 
 .navChildrenWrapper.open {
-  max-height: 160px;
+  grid-template-rows: 1fr;
   opacity: 1;
-  transition: max-height .26s cubic-bezier(.4, 0, .2, 1), opacity .22s ease .04s;
+  visibility: visible;
+  transition:
+    grid-template-rows .26s cubic-bezier(.4, 0, .2, 1),
+    opacity .22s ease .04s,
+    visibility 0s;
 }
 
 .navChildren {
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
   margin-left: 20px;
   padding: 2px 0 6px 12px;
   border-left: 1px solid var(--border-subtle);
@@ -152,6 +164,13 @@
 }
 
 .navChildItem:hover { background: var(--bg-card); color: var(--text-primary); }
+
+/* outline para dentro (-2px) para o anel de foco não ser cortado pelo overflow do submenu */
+.navChildItem:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: -2px;
+  color: var(--text-primary);
+}
 
 .navChildItem.active {
   background: linear-gradient(90deg, rgba(139,109,255,.24), rgba(93,229,255,.06));

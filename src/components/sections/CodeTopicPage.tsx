@@ -27,8 +27,12 @@ export default function CodeTopicPage({ topic }: { topic: CodeTopic }) {
             <span className="count-sm">{group.commands.length}</span>
           </div>
           <div className="sub-section-grid">
-            {group.commands.map((command) => (
-              <CodeCommandRow key={command.cmd} cmd={command.cmd} comment={command.comment} />
+            {group.commands.map((command, i) => (
+              <CodeCommandRow
+                key={`${group.title}-${i}-${command.cmd}`}
+                cmd={command.cmd}
+                comment={command.comment}
+              />
             ))}
           </div>
         </div>

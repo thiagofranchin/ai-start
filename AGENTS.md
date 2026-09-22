@@ -30,7 +30,7 @@ src/
 │   └── code/
 │       ├── page.tsx            # Redireciona para /code/python
 │       └── [topic]/
-│           └── page.tsx        # Rota dinâmica de tópicos Code (python, node, fcc)
+│           └── page.tsx        # Rota dinâmica de tópicos Code (python, node, fcc, claude-codex, dsh)
 ├── components/
 │   ├── cards/
 │   │   ├── Card.tsx            # Card genérico com link overlay, color variant e múltiplos links extras
@@ -47,7 +47,7 @@ src/
 │   │   ├── PageSection.tsx     # Wrapper: header (emoji + título + contador) + grid de cards
 │   │   ├── SectionContent.tsx  # Client Component — renderiza cards de qualquer seção (exceto cripto)
 │   │   ├── SearchFilter.tsx    # Client Component — filtra children baseado na query do SearchProvider
-│   │   ├── CodeTabs.tsx        # Abas de navegação entre tópicos de Code (python/node/fcc)
+│   │   ├── CodeTabs.tsx        # Abas de navegação entre tópicos de Code (python/node/fcc/claude-codex/dsh)
 │   │   ├── CodeTopicPage.tsx   # Renderiza um tópico Code (intro + grupos de comandos)
 │   │   ├── CodeCommandRow.tsx  # Linha de comando com shell + CopyButton + comentário
 │   │   ├── CriptoPage.tsx      # Client Component — filtro de categoria + grid com animações + ticker
@@ -60,7 +60,7 @@ src/
 │   ├── index.ts                # Barrel export de todos os arrays
 │   ├── ais.ts                  # 12 IAs/APIs (Claude, ChatGPT, Gemini, DeepSeek, Grok, OpenRouter, NVIDIA, Infura, Dune, FMP, CryptoQuant, Z.ai)
 │   ├── repos.ts                # 2 repositórios (Free Claude Code, Awesome DeepSeek Agent)
-│   ├── code.ts                 # 3 tópicos de versionamento (Python/pyenv, Node/nvm, Free Claude Code)
+│   ├── code.ts                 # 5 tópicos (Python/pyenv, Node/nvm, Free Claude Code, Claude Code & Codex, DeepSeek Harness)
 │   ├── skills.ts               # 12 skills/plugins
 │   ├── cursos.ts               # 4 cursos/plataformas
 │   ├── utils.ts                # 2 utilitários
@@ -119,7 +119,7 @@ Slugs inválidos acionam `notFound()`. A seção `cripto` tem tratamento especia
 Além disso, a seção **Code** (`/code`) usa uma segunda rota dinâmica `/[topic]/page.tsx` com `generateStaticParams()`:
 
 ```ts
-const VALID_TOPICS = ['python', 'node', 'fcc'];
+const VALID_TOPICS = ['python', 'node', 'fcc', 'claude-codex', 'dsh'];
 ```
 
 `/code` redireciona para `/code/python`. Cada tópico renderiza `<CodeTabs />` (abas) + `<CodeTopicPage />` (intro + grupos de comandos).
@@ -182,7 +182,7 @@ npm run lint
 | Skills | `/skills` | 12 | Card (com links) |
 | Cursos | `/cursos` | 4 | Card |
 | Cripto | `/cripto` | 35 + ticker | TermCard + CryptoTicker |
-| Code | `/code/[topic]` | 3 tópicos | CodeTabs + CodeCommandRow |
+| Code | `/code/[topic]` | 5 tópicos | CodeTabs + CodeCommandRow |
 | Oportunidades | `/jobs` | 3 | Card |
 
 ## APIs Externas

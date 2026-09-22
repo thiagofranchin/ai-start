@@ -50,6 +50,7 @@ export type SectionId =
 
 // ===== CODE (tutoriais de versionamento) =====
 export type CodeTopicId = 'python' | 'node' | 'fcc'
+  | 'claude-codex'
   | 'dsh';
 
 export interface CodeCommand {
