@@ -58,6 +58,14 @@ export const ais: AIItem[] = [
     links: [{ url: 'https://build.nvidia.com/settings/api-keys', label: '⚙️ API' }],
   },
   {
+    name: 'JEV',
+    url: 'https://console.typesafe.ai/playground',
+    desc: 'Plataforma de IA da Typesafe',
+    icon: '/icons/jev.svg',
+    color: 'purple',
+    links: [{ url: 'https://console.typesafe.ai/usage', label: '⚙️ API' }],
+  },
+  {
     name: 'Infura',
     desc: 'API e infraestrutura Web3 para Ethereum e IPFS',
     icon: '/icons/infura.svg',
