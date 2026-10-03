@@ -73,6 +73,13 @@ export const ais: AIItem[] = [
     links: [{ url: 'https://app.infura.io/', label: '⚙️ API' }],
   },
   {
+    name: 'Etherscan.io',
+    desc: 'Explorador de blocos e dados on-chain do Ethereum',
+    icon: 'Ξ',
+    color: 'blue',
+    links: [{ url: 'https://etherscan.io/apidashboard', label: '⚙️ API' }],
+  },
+  {
     name: 'Dune',
     desc: 'Análise e dashboards de dados on-chain',
     icon: '/icons/dune.svg',
