@@ -94,6 +94,13 @@ export const ais: AIItem[] = [
     links: [{ url: 'https://site.financialmodelingprep.com/developer/docs/dashboard', label: '⚙️ API' }],
   },
   {
+    name: 'FRED',
+    desc: 'Dados econômicos e séries históricas do Federal Reserve de St. Louis',
+    icon: '/icons/fred.svg',
+    color: 'blue',
+    links: [{ url: 'https://fred.stlouisfed.org/docs/api/api_key.html', label: '⚙️ API' }],
+  },
+  {
     name: 'CryptoQuant',
     desc: 'Dados e análises on-chain para o mercado cripto',
     icon: '₿',
