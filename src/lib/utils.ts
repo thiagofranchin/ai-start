@@ -7,12 +7,7 @@ export function formatPrice(val: number): string {
   return val.toFixed(4);
 }
 
-/** Gera string de data/hora para o ticker */
-export function formatUpdateTime(): string {
-  return '⏱️ ' + new Date().toLocaleTimeString('pt-BR');
-}
-
-/** Gera data para o footer do sidebar */
-export function formatSidebarDate(): string {
-  return 'Atualizado em ' + new Date().toLocaleDateString('pt-BR');
+/** Formata variação percentual com seta: "▲ 1.23%" / "▼ 0.40%" */
+export function formatChange(val: number): string {
+  return `${val >= 0 ? '▲' : '▼'} ${Math.abs(val).toFixed(2)}%`;
 }

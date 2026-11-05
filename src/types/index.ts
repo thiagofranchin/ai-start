@@ -78,6 +78,10 @@ export interface CriptoPrices {
   eth: number | null;
   sol: number | null;
   dolar: number | null;
+  /** Variação em 24h (%) */
+  btcChange: number | null;
+  ethChange: number | null;
+  solChange: number | null;
   updatedAt: string | null;
   error: boolean;
 }

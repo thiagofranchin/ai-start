@@ -9,7 +9,7 @@ export default function CodeCommandRow({ cmd, comment }: CodeCommandRowProps) {
   return (
     <div className="code-cmd-row">
       <div className="cmd-shell">
-        <span className="prompt">$</span>
+        <span className="prompt" aria-hidden="true">$</span>
         <span className="cmd-text">{cmd}</span>
         <CopyButton text={cmd} />
       </div>

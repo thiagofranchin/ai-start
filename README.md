@@ -4,11 +4,13 @@ Dashboard pessoal para centralizar ferramentas, IAs, APIs, repositórios, comand
 
 ## Recursos
 
-- Busca global instantânea entre os recursos catalogados.
+- **Paleta de comandos** (`Ctrl/⌘ + K`): busca em todas as seções de uma vez e abre o recurso direto; `/` foca o filtro da página.
+- **Favoritos** (★ em qualquer card): ficam fixados na home e no topo da paleta, salvos no navegador.
+- Filtro por página sem diferenciar acentos, com estado vazio e botão "Limpar busca".
 - Seções para IAs & APIs, Agents & Skills, repositórios, utilitários, cursos, cripto & DeFi e oportunidades.
-- Guia de comandos para Python, Node e Free Claude Code.
-- Cotações de BTC, ETH, SOL e USD/BRL, atualizadas a partir de CoinGecko e AwesomeAPI.
-- Layout responsivo, sidebar com navegação e tema terminal na área de cripto.
+- Guia de comandos copiáveis para Python, Node, Free Claude Code, Claude Code & Codex e DeepSeek Harness.
+- Cotações de BTC, ETH, SOL (com variação 24h) e USD/BRL, atualizadas a cada 60s via CoinGecko e AwesomeAPI.
+- Layout responsivo, sidebar agrupada, navegação por teclado, link "Pular para o conteúdo" e suporte a `prefers-reduced-motion`.
 
 ## Tecnologias
 
@@ -23,7 +25,7 @@ Dashboard pessoal para centralizar ferramentas, IAs, APIs, repositórios, comand
 - `src/components`: componentes reutilizáveis de layout, cards e seções.
 - `src/data`: catálogo estático e tipado dos recursos.
 - `src/types`: tipos compartilhados.
-- `src/lib`: constantes e utilitários.
+- `src/lib`: constantes, registro de busca (`registry.ts`), favoritos, cotações e utilitários.
 
 ## Como executar
 

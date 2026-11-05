@@ -1,10 +1,14 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { cripto } from '@/data';
 import CryptoTicker from './CryptoTicker';
-import SearchFilter from './SearchFilter';
+import EmptyState from '@/components/ui/EmptyState';
+import FavoriteButton from '@/components/ui/FavoriteButton';
+import { useFilteredItems } from './useFilteredItems';
+import { itemKey } from '@/lib/registry';
+import type { CriptoItem } from '@/types';
 import styles from './CriptoPage.module.css';
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -21,42 +25,41 @@ const CATEGORY_COLORS: Record<string, string> = {
   'RWA': styles.catRWA,
 };
 
+// As categorias também entram na busca (ex.: "bridge", "lending")
+const categoryText = (item: CriptoItem) => item.categories.join(' ');
+
 export default function CriptoPage() {
   const [currentFilter, setCurrentFilter] = useState('Todas');
 
-  // Constrói categorias únicas
-  const categories = useMemo(() => {
-    const allCats = cripto.flatMap((c) => c.categories);
-    return ['Todas', ...new Set(allCats)];
-  }, []);
+  const categories = useMemo(() => ['Todas', ...new Set(cripto.flatMap((c) => c.categories))], []);
 
-  // Filtra items
-  const filtered = useMemo(() => {
-    if (currentFilter === 'Todas') return cripto;
-    return cripto.filter((c) => c.categories.includes(currentFilter));
-  }, [currentFilter]);
+  const byCategory = useMemo(
+    () => (currentFilter === 'Todas' ? cripto : cripto.filter((c) => c.categories.includes(currentFilter))),
+    [currentFilter]
+  );
+  const filtered = useFilteredItems(byCategory, categoryText);
 
-  // Conta por categoria
-  const getCount = (cat: string) => {
-    if (cat === 'Todas') return cripto.length;
-    return cripto.filter((c) => c.categories.includes(cat)).length;
-  };
+  const getCount = (cat: string) =>
+    cat === 'Todas' ? cripto.length : cripto.filter((c) => c.categories.includes(cat)).length;
 
   return (
     <div className={styles.container}>
-      {/* Section header */}
       <div className={styles.sectionHeader}>
-        <span className={styles.emoji}>🪙</span>
-        <h3>Cripto & DeFi</h3>
-        <span className={styles.count}>{filtered.length} itens</span>
+        <h2>
+          <span className={styles.prompt}>$</span> ls ./{currentFilter === 'Todas' ? 'all' : currentFilter.toLowerCase().replace(/\s+/g, '-')}
+        </h2>
+        <span className={styles.count} aria-live="polite">
+          {filtered.length === cripto.length ? `${cripto.length} itens` : `${filtered.length} de ${byCategory.length} itens`}
+        </span>
       </div>
 
-      {/* Filter bar */}
-      <div className={styles.filterBar}>
+      <div className={styles.filterBar} role="group" aria-label="Filtrar por categoria">
         {categories.map((cat) => (
           <button
             key={cat}
+            type="button"
             className={`${styles.filterPill} ${cat === currentFilter ? styles.active : ''}`}
+            aria-pressed={cat === currentFilter}
             onClick={() => setCurrentFilter(cat)}
           >
             {cat}
@@ -65,35 +68,40 @@ export default function CriptoPage() {
         ))}
       </div>
 
-      {/* Cards grid */}
-      <div className={styles.cardGrid}>
-        {filtered.map((item, i) => {
-          // Pega a primeira categoria para a cor da borda
-          const primaryCategory = item.categories[0];
-          const borderClass = primaryCategory ? CATEGORY_COLORS[primaryCategory] : '';
+      {filtered.length === 0 ? (
+        <EmptyState />
+      ) : (
+        <div className={styles.cardGrid}>
+          {filtered.map((item, i) => {
+            const primaryCategory = item.categories[0];
+            const borderClass = primaryCategory ? CATEGORY_COLORS[primaryCategory] : '';
 
-          return (
-            <SearchFilter key={item.name} searchText={`${item.name} ${item.desc}`}>
+            return (
               <div
+                key={item.name}
                 className={`${styles.termCard} ${borderClass}`}
-                style={{ animationDelay: `${i * 0.03}s` }}
+                style={{ animationDelay: `${Math.min(i, 15) * 0.03}s` }}
               >
-                <div className={styles.termCardIcon}>{item.icon}</div>
-                <h4>{item.name}</h4>
+                <div className={styles.termCardIcon} aria-hidden="true">{item.icon}</div>
+                <h3>{item.name}</h3>
                 <p>{item.desc}</p>
+                <div className={styles.termTags}>
+                  {item.categories.map((cat) => <span key={cat}>{cat}</span>)}
+                </div>
                 <Link
                   href={item.url}
                   className={styles.termCardLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Abrir ${item.name} em nova aba`}
                 />
+                <FavoriteButton itemKey={itemKey('cripto', item.name)} name={item.name} />
               </div>
-            </SearchFilter>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
-      {/* Price ticker */}
       <CryptoTicker />
     </div>
   );

@@ -6,11 +6,7 @@ export default function CodeTopicPage({ topic }: { topic: CodeTopic }) {
 
   return (
     <div className="section">
-      <div className="section-header">
-        <span className="emoji">{topic.icon}</span>
-        <h3>{topic.label}</h3>
-        <span className="count">{total} comandos</span>
-      </div>
+      <div className="section-meta">{total} comandos</div>
       <p className="code-topic-intro">{topic.intro}</p>
       {topic.repoUrl && (
         <div className="cmd-repo-ref">
@@ -23,7 +19,7 @@ export default function CodeTopicPage({ topic }: { topic: CodeTopic }) {
       {topic.groups.map((group) => (
         <div className="sub-section" key={group.title}>
           <div className="sub-section-header">
-            <h4>{group.title}</h4>
+            <h2>{group.title}</h2>
             <span className="count-sm">{group.commands.length}</span>
           </div>
           <div className="sub-section-grid">

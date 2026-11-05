@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '@/lib/constants';
-import { formatSidebarDate } from '@/lib/utils';
+import { useModKey } from '@/lib/useIsClient';
 import { ais, repos, skills, cursos, utils, cripto, jobs } from '@/data';
 import styles from './Sidebar.module.css';
 
@@ -20,98 +20,86 @@ const COUNTS: Record<string, number> = {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [updatedDate, setUpdatedDate] = useState('');
+  const modKey = useModKey();
 
-  useEffect(() => {
-    setUpdatedDate(formatSidebarDate());
-  }, []);
+  // O menu mobile pertence à rota em que foi aberto: ao navegar, fecha sozinho (sem efeito)
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const open = openPath === pathname;
+  const close = useCallback(() => setOpenPath(null), []);
 
-  const close = useCallback(() => setOpen(false), []);
+  // Submenus: o escolhido pelo usuário vence; sem escolha, abre quando a seção está ativa
+  const [manual, setManual] = useState<Record<string, boolean>>({});
 
   const segments = pathname.split('/').filter(Boolean);
   const currentSection = pathname === '/' ? 'home' : segments[0];
   const currentSubSection = segments[1];
 
-  const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
-    const initial: Record<string, boolean> = {};
-    NAV_ITEMS.forEach((item) => {
-      if (item.children) initial[item.id] = currentSection === item.id;
-    });
-    return initial;
-  });
-
-  const toggleExpanded = useCallback((id: string) => {
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
-  }, []);
-
-  // Abre automaticamente o submenu ao navegar direto para uma de suas rotas
   useEffect(() => {
-    if (NAV_ITEMS.some((item) => item.id === currentSection && item.children)) {
-      setExpanded((prev) => ({ ...prev, [currentSection]: true }));
-    }
-  }, [currentSection]);
-
-  // Fecha o sidebar ao navegar (mobile)
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') close();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open, close]);
 
   return (
     <>
-      {/* Mobile overlay */}
-      {open && <div className={styles.overlay} onClick={close} />}
+      {open && <div className={styles.overlay} onClick={close} aria-hidden="true" />}
 
-      {/* Mobile toggle */}
       <button
+        type="button"
         className={styles.toggle}
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setOpenPath(open ? null : pathname)}
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+        aria-expanded={open}
+        aria-controls="sidebar"
       >
         {open ? '✕' : '☰'}
       </button>
 
-      {/* Sidebar */}
-      <aside className={`${styles.sidebar} ${open ? styles.open : ''}`}>
-        <div className={styles.sidebarHeader}>
-          <h1>ai-start</h1>
-          <p>Launchpad · dashboard</p>
-        </div>
-        <nav className={styles.sidebarNav}>
-          <div className={styles.navLabel}>Navegação</div>
-          {NAV_ITEMS.map((item) => {
+      <aside id="sidebar" className={`${styles.sidebar} ${open ? styles.open : ''}`}>
+        <Link href="/" className={styles.brand} aria-label="ai-start — ir para o início">
+          <span className={styles.logo} aria-hidden="true">🚀</span>
+          <span className={styles.brandText}>
+            <span className={styles.brandName}>ai-start</span>
+            <span className={styles.brandSub}>Launchpad</span>
+          </span>
+        </Link>
+
+        <nav className={styles.sidebarNav} aria-label="Navegação principal">
+          {NAV_ITEMS.map((item, index) => {
             const isActive = currentSection === item.id;
             const href = item.id === 'home' ? '/' : `/${item.id}`;
             const count = COUNTS[item.id];
             const hasChildren = !!item.children;
-            const isExpanded = hasChildren && !!expanded[item.id];
+            const isExpanded = hasChildren && (manual[item.id] ?? isActive);
+            const showGroup = !!item.group && item.group !== NAV_ITEMS[index - 1]?.group;
 
             return (
-              <div key={item.id}>
+              <Fragment key={item.id}>
+                {showGroup && <div className={styles.navLabel}>{item.group}</div>}
                 {hasChildren ? (
                   <button
                     type="button"
                     className={`${styles.navItem} ${isActive ? styles.active : ''}`}
-                    onClick={() => toggleExpanded(item.id)}
+                    onClick={() => setManual((prev) => ({ ...prev, [item.id]: !isExpanded }))}
                     aria-expanded={isExpanded}
                     aria-controls={`nav-children-${item.id}`}
                   >
-                    <span className={styles.icon}>{item.icon}</span>
+                    <span className={styles.icon} aria-hidden="true">{item.icon}</span>
                     {item.label}
-                    <span className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ''}`}>
-                      ›
-                    </span>
+                    <span className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ''}`} aria-hidden="true">›</span>
                   </button>
                 ) : (
                   <Link
                     href={href}
                     className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                    aria-current={isActive ? 'page' : undefined}
                   >
-                    <span className={styles.icon}>{item.icon}</span>
+                    <span className={styles.icon} aria-hidden="true">{item.icon}</span>
                     {item.label}
-                    {count !== undefined && (
-                      <span className={styles.badge}>{count}</span>
-                    )}
+                    {count !== undefined && <span className={styles.badge}>{count}</span>}
                   </Link>
                 )}
                 {hasChildren && (
@@ -127,8 +115,10 @@ export default function Sidebar() {
                             key={child.id}
                             href={`/${item.id}/${child.id}`}
                             className={`${styles.navChildItem} ${isChildActive ? styles.active : ''}`}
+                            aria-current={isChildActive ? 'page' : undefined}
+                            tabIndex={isExpanded ? 0 : -1}
                           >
-                            <span className={styles.icon}>{child.icon}</span>
+                            <span className={styles.icon} aria-hidden="true">{child.icon}</span>
                             {child.label}
                           </Link>
                         );
@@ -136,12 +126,14 @@ export default function Sidebar() {
                     </div>
                   </div>
                 )}
-              </div>
+              </Fragment>
             );
           })}
         </nav>
+
         <div className={styles.sidebarFooter}>
-          <span>{updatedDate || 'Atualizado em —/—/——'}</span>
+          <span><kbd>{modKey}</kbd><kbd>K</kbd> buscar</span>
+          <span><kbd>/</kbd> filtrar</span>
         </div>
       </aside>
     </>

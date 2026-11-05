@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useIsClient } from '@/lib/useIsClient';
 
 const TOOLTIP_DELAY_MS = 2000;
 const TOOLTIP_MAX_WIDTH = 320;
@@ -25,11 +26,9 @@ interface TooltipPos {
 export default function TruncatedDescription({ text }: { text: string }) {
   const pRef = useRef<HTMLParagraphElement>(null);
   const timerRef = useRef<number | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const [truncated, setTruncated] = useState(false);
   const [pos, setPos] = useState<TooltipPos | null>(null);
-
-  useEffect(() => setMounted(true), []);
 
   const checkTruncation = useCallback(() => {
     const el = pRef.current;

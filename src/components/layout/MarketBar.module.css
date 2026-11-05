@@ -9,7 +9,10 @@
 .symbol { color: var(--text-muted); font-size: .6rem; letter-spacing: .08em; }
 .coinIcon { font-size: .78rem; }
 .btc { color: #f7931a; } .eth { color: #9d9dff; } .sol { color: #00ffa3; } .usd { color: #f7d447; }
-.updated { color: var(--text-muted); font-size: .55rem; white-space: nowrap; }
+.change { font-size: .6rem; font-weight: 500; }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.updated { color: var(--text-muted); font-size: .6rem; white-space: nowrap; }
 .refresh { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid rgba(93,229,255,.2); border-radius: 7px; color: var(--cyan); background: rgba(93,229,255,.06); cursor: pointer; font-size: 1rem; transition: var(--transition); }
 .refresh:hover { color: #061016; background: var(--cyan); box-shadow: 0 0 18px rgba(93,229,255,.3); transform: translateY(-1px); }
 .refresh:disabled { cursor: wait; opacity: .65; }
@@ -17,4 +20,5 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 50% { opacity: .35; box-shadow: 0 0 2px currentColor; } }
 @media (max-width: 900px) { .bar { left: 0; padding: 0 14px 0 58px; gap: 10px; } .status, .updated { display: none; } .track { overflow-x: auto; scrollbar-width: none; } .track::-webkit-scrollbar { display: none; } .quote { padding: 0 12px; } }
+@media (max-width: 700px) { .change { display: none; } }
 @media (max-width: 520px) { .bar { padding-right: 10px; } .quote { gap: 5px; padding: 0 9px; font-size: .66rem; } .symbol { display: none; } }

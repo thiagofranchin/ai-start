@@ -2,12 +2,20 @@ import { notFound } from 'next/navigation';
 import CodeTabs from '@/components/sections/CodeTabs';
 import CodeTopicPage from '@/components/sections/CodeTopicPage';
 import { codeTopics } from '@/data';
+import { pageMetadata } from '@/lib/site';
 import type { CodeTopicId } from '@/types';
 
 const VALID_TOPICS: CodeTopicId[] = ['python', 'node', 'fcc', 'claude-codex', 'dsh'];
 
 export function generateStaticParams() {
   return VALID_TOPICS.map((topic) => ({ topic }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ topic: string }> }) {
+  const { topic } = await params;
+  const data = codeTopics.find((t) => t.id === topic);
+  if (!data) return {};
+  return pageMetadata(`Code · ${data.label}`, data.intro, `/code/${data.id}`);
 }
 
 export default async function CodeTopicRoute({

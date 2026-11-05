@@ -11,13 +11,33 @@
   transition: transform var(--transition);
 }
 
-.sidebarHeader {
-  padding: 20px 18px 14px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 18px 16px;
   border-bottom: 1px solid var(--border-subtle);
+  transition: background var(--transition);
 }
 
-.sidebarHeader h1 {
-  font-size: 1.15rem;
+.brand:hover { background: rgba(255, 255, 255, .02); }
+
+.logo {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, rgba(124, 92, 252, .35), rgba(93, 229, 255, .18));
+  border: 1px solid rgba(139, 109, 255, .35);
+  box-shadow: 0 0 22px rgba(124, 92, 252, .22);
+}
+
+.brandText { display: flex; flex-direction: column; line-height: 1.2; }
+
+.brandName {
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: -.02em;
   background: var(--accent-gradient);
@@ -26,12 +46,11 @@
   background-clip: text;
 }
 
-.sidebarHeader p {
-  font-size: .7rem;
+.brandSub {
+  font-size: .68rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-top: 2px;
+  letter-spacing: .1em;
 }
 
 .sidebarNav {
@@ -41,7 +60,8 @@
 }
 
 .navLabel {
-  font-size: .65rem;
+  margin-top: 8px;
+  font-size: .68rem;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -69,6 +89,7 @@
 }
 
 .navItem:hover { background: var(--bg-card); color: var(--text-primary); }
+.navItem:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
 
 .navItem.active {
   background: linear-gradient(90deg, rgba(139,109,255,.3), rgba(93,229,255,.08));
@@ -186,11 +207,25 @@
 }
 
 .sidebarFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
   padding: 12px 16px;
   border-top: 1px solid var(--border-subtle);
-  font-size: .7rem;
+  font-size: .72rem;
   color: var(--text-muted);
-  text-align: center;
+}
+
+.sidebarFooter kbd {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: .66rem;
+  padding: 1px 5px;
+  margin-right: 2px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--bg-glass);
+  color: var(--text-secondary);
 }
 
 /* Mobile toggle */
@@ -236,6 +271,10 @@
 
   .overlay {
     display: block;
+  }
+
+  .sidebarFooter {
+    display: none;
   }
 }
 

@@ -6,7 +6,7 @@
   --term-accent: #00ffc8;
   --term-accent-glow: rgba(0, 255, 200, 0.18);
   --term-text: #d4d4d4;
-  --term-muted: #6a6a7a;
+  --term-muted: #8a8a9c;
   --term-dim: #2a2a3e;
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
   position: relative;
@@ -51,21 +51,17 @@
   border-bottom: 1px solid var(--term-border);
 }
 
-.sectionHeader .emoji {
-  font-size: 1rem;
-  filter: saturate(.8);
-}
+.prompt { color: var(--term-accent); }
 
-.sectionHeader h3 {
+.sectionHeader h2 {
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
   font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  letter-spacing: .02em;
   color: var(--term-text);
 }
 
-.sectionHeader h3::after {
+.sectionHeader h2::after {
   content: '▊';
   margin-left: 6px;
   animation: termBlink 1s step-end infinite;
@@ -76,7 +72,7 @@
 .count {
   margin-left: auto;
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
-  font-size: .65rem;
+  font-size: .72rem;
   color: var(--term-accent);
   background: var(--term-accent-glow);
   border: 1px solid var(--term-border);
@@ -97,8 +93,8 @@
 
 .filterPill {
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
-  font-size: .65rem;
-  padding: 4px 10px;
+  font-size: .72rem;
+  padding: 6px 12px;
   border-radius: 2px;
   border: 1px solid var(--term-border);
   background: transparent;
@@ -166,8 +162,8 @@
 .termCard::after {
   content: '●';
   position: absolute;
-  top: 10px;
-  right: 12px;
+  top: 14px;
+  right: 46px;
   font-size: .45rem;
   color: var(--term-accent);
   opacity: .35;
@@ -187,9 +183,9 @@
   border: 1px solid var(--term-border);
 }
 
-.termCard h4 {
+.termCard h3 {
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
-  font-size: .82rem;
+  font-size: .92rem;
   font-weight: 600;
   letter-spacing: -.01em;
   color: var(--term-text);
@@ -198,9 +194,36 @@
 
 .termCard p {
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
-  font-size: .64rem;
+  font-size: .74rem;
+  color: #8a8a9c;
+  line-height: 1.5;
+}
+
+.termTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.termTags span {
+  font-size: .6rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
   color: var(--term-muted);
-  line-height: 1.45;
+  border: 1px solid var(--term-border);
+  border-radius: 2px;
+  padding: 1px 6px;
+}
+
+.termCard :global(.fav-btn) {
+  color: var(--term-muted);
+  border-radius: 3px;
+}
+
+.termCard :global(.fav-btn:hover),
+.termCard :global(.fav-btn.on) {
+  color: var(--term-accent);
 }
 
 .termCardLink {

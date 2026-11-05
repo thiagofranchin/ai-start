@@ -19,92 +19,89 @@ Dashboard pessoal que cataloga ferramentas, APIs, IAs, comandos e recursos do ec
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root Layout: SearchProvider + MarketBar + Sidebar + TopBar + children
-│   ├── page.tsx                # Home: welcome + 7 stat cards (contadores por seção)
-│   ├── globals.css             # Reset, variáveis CSS, estilos de cards/sections, animações, responsive
-│   ├── loading.tsx             # Suspense fallback: "⏳ Carregando..."
-│   ├── not-found.tsx           # 404: "Página não encontrada" com link para home
-│   ├── error.tsx               # Error Boundary: erro inesperado com botão reset()
-│   ├── [section]/
-│   │   └── page.tsx            # Rota dinâmica — 7 seções (ais, repos, utils, skills, cursos, cripto, jobs)
+│   ├── layout.tsx              # Root Layout: SearchProvider + MarketProvider + MarketBar + Sidebar + TopBar + CommandPalette + skip-link
+│   ├── page.tsx                # Home: hero (com busca) + Favoritos + atalhos de seção (StatCard como link)
+│   ├── globals.css             # Reset, variáveis CSS, cards, favoritos, empty state, skeleton, a11y, reduced-motion
+│   ├── loading.tsx             # Suspense fallback: skeleton de cards
+│   ├── not-found.tsx / error.tsx
+│   ├── icon.svg / robots.ts / sitemap.ts   # Favicon, robots e sitemap (metadata files do Next)
+│   ├── [section]/page.tsx      # Rota dinâmica — 7 seções (ais, repos, utils, skills, cursos, cripto, jobs) + generateMetadata
 │   └── code/
 │       ├── page.tsx            # Redireciona para /code/python
-│       └── [topic]/
-│           └── page.tsx        # Rota dinâmica de tópicos Code (python, node, fcc, claude-codex, dsh)
+│       └── [topic]/page.tsx    # Tópicos Code (python, node, fcc, claude-codex, dsh) + generateMetadata
 ├── components/
 │   ├── cards/
-│   │   ├── Card.tsx            # Card genérico com link overlay, color variant e múltiplos links extras
-│   │   ├── AICard.tsx          # Card de IA/API — botão opcional "Abrir chat", links secundários (ex.: API), pulse indicator e stagger via `index`
-│   │   └── StatCard.tsx        # Card de estatística da home (sem link overlay)
+│   │   ├── Card.tsx            # Card genérico: link overlay (com aria-label), links extras e ★ favorito (`favKey`)
+│   │   ├── AICard.tsx          # Card de IA/API: botão "Abrir chat", links secundários, pulse, stagger via `index`, ★ favorito
+│   │   ├── StatCard.tsx        # Atalho de seção na home (Link com ícone, contagem e descrição)
+│   │   └── StatCard.module.css
 │   ├── layout/
-│   │   ├── Sidebar.tsx         # Sidebar fixa: nav items com badges de contagem, submenu (Code), mobile toggle, overlay
-│   │   ├── Sidebar.module.css
-│   │   ├── TopBar.tsx          # Título dinâmico (via pathname) + search input
-│   │   ├── SearchProvider.tsx  # React Context — query de busca global + hook useSearch()
-│   │   ├── MarketBar.tsx       # Barra global de cotações (BTC/ETH/SOL/USD) — fetch CoinGecko + AwesomeAPI
-│   │   └── MarketBar.module.css
+│   │   ├── Sidebar.tsx         # Sidebar com grupos (Explorar / Desenvolvimento / Mercado & carreira), badges, submenu Code, menu mobile
+│   │   ├── TopBar.tsx          # <h1> da página + descrição, filtro da página (só seções filtráveis) e botão da paleta
+│   │   ├── SearchProvider.tsx  # Context: query do filtro (zera ao navegar) + estado da paleta
+│   │   ├── CommandPalette.tsx  # Paleta Ctrl/⌘+K (busca global no catálogo) + atalho "/" para o filtro
+│   │   ├── MarketProvider.tsx  # Context único de cotações: fetch ao montar + a cada 60s (aba visível) + refresh manual
+│   │   └── MarketBar.tsx       # Barra global de cotações (consome MarketProvider)
 │   ├── sections/
-│   │   ├── PageSection.tsx     # Wrapper: header (emoji + título + contador) + grid de cards
-│   │   ├── SectionContent.tsx  # Client Component — renderiza cards de qualquer seção (exceto cripto)
-│   │   ├── SearchFilter.tsx    # Client Component — filtra children baseado na query do SearchProvider
-│   │   ├── CodeTabs.tsx        # Abas de navegação entre tópicos de Code (python/node/fcc/claude-codex/dsh)
-│   │   ├── CodeTopicPage.tsx   # Renderiza um tópico Code (intro + grupos de comandos)
-│   │   ├── CodeCommandRow.tsx  # Linha de comando com shell + CopyButton + comentário
-│   │   ├── CriptoPage.tsx      # Client Component — filtro de categoria + grid com animações + ticker
-│   │   ├── CriptoPage.module.css  # Tema DeFi Terminal: scanlines, grid bg, animações, cores por categoria
-│   │   ├── CryptoTicker.tsx    # Client Component — fetch CoinGecko + AwesomeAPI, refresh manual
-│   │   └── CryptoTicker.module.css  # Cards de preço com bordas coloridas por moeda
+│   │   ├── PageSection.tsx     # Wrapper: contagem "x de y itens" + grid de cards
+│   │   ├── SectionContent.tsx  # Client — cards de qualquer seção (exceto cripto), filtrados por useFilteredItems
+│   │   ├── useFilteredItems.ts # Hook: filtra por query (sem acento, todos os termos)
+│   │   ├── FavoritesSection.tsx / HeroSearch.tsx  # Home: favoritos fixados e botão de busca do hero
+│   │   ├── CodeTabs.tsx / CodeTopicPage.tsx / CodeCommandRow.tsx
+│   │   ├── CriptoPage.tsx(+.module.css)    # Client — tema terminal, filtro de categoria, tags, ★ favorito
+│   │   └── CryptoTicker.tsx(+.module.css)  # Client — cards de preço (consome MarketProvider)
 │   └── ui/
-│       └── CopyButton.tsx      # Client Component — clipboard API com feedback "✓ Copiado" e fallback
-├── data/
-│   ├── index.ts                # Barrel export de todos os arrays
-│   ├── ais.ts                  # 12 IAs/APIs (Claude, ChatGPT, Gemini, DeepSeek, Grok, OpenRouter, NVIDIA, Infura, Dune, FMP, CryptoQuant, Z.ai)
-│   ├── repos.ts                # 2 repositórios (Free Claude Code, Awesome DeepSeek Agent)
-│   ├── code.ts                 # 5 tópicos (Python/pyenv, Node/nvm, Free Claude Code, Claude Code & Codex, DeepSeek Harness)
-│   ├── skills.ts               # 12 skills/plugins
-│   ├── cursos.ts               # 4 cursos/plataformas
-│   ├── utils.ts                # 2 utilitários
-│   ├── jobs.ts                 # 3 plataformas de vagas (Nerdin, Revelo, LinkedIn)
-│   └── cripto.ts               # 35 itens em 11 categorias (Swap, DeFi, Lending, etc.)
-├── types/
-│   └── index.ts                # Interfaces: BaseItem, LinkItem, AIItem, RepoItem, SkillItem, CursoItem, UtilItem, CriptoItem, CriptoPrices, SectionId, CodeTopic, CodeCommand
+│       ├── CardIcon.tsx        # Ícone de card (emoji ou imagem via next/image `unoptimized`)
+│       ├── FavoriteButton.tsx  # Botão ★ (aria-pressed)
+│       ├── EmptyState.tsx      # "Nenhum resultado" + Limpar busca
+│       ├── CopyButton.tsx
+│       └── TruncatedDescription.tsx  # Descrição com clamp + tooltip (portal)
+├── data/                       # Arrays estáticos tipados por seção (ais, repos, skills, cursos, utils, jobs, cripto, code) + index.ts
+├── types/index.ts              # BaseItem, AIItem, CriptoItem, CriptoPrices, SectionId, CodeTopic…
 └── lib/
-    ├── constants.ts             # SECTION_TITLES, NAV_ITEMS (9 seções com labels e ícones)
-    └── utils.ts                 # formatPrice, formatUpdateTime, formatSidebarDate
+    ├── constants.ts            # SECTION_TITLES/EMOJIS/DESCRIPTIONS, FILTERABLE_SECTIONS, NAV_ITEMS (com `group`)
+    ├── registry.ts             # `catalog` (todos os cards, chave `seção:nome`) + `pages` — alimenta paleta e favoritos
+    ├── search.ts               # normalize() e matchesQuery() (sem acento, multi-termo)
+    ├── favorites.ts            # useFavorites() — localStorage via useSyncExternalStore
+    ├── market.ts               # fetchMarket() — CoinGecko + AwesomeAPI, falha independente por fonte
+    ├── site.ts                 # SITE_URL, pageMetadata()
+    ├── useIsClient.ts          # useIsClient() / useModKey() sem setState em efeito
+    └── utils.ts                # formatPrice, formatChange
 ```
+
+> Contagens de itens mudam toda hora: a fonte da verdade é `src/data/` (a UI calcula `array.length`).
 
 ## Arquitetura e Decisões de Design
 
 ### Server Components vs Client Components
 
-A estratégia é **Server Components por padrão, Client Components apenas onde necessário**:
+Server Components por padrão; Client Components só onde há estado, efeitos ou eventos:
 
 | Componente | Tipo | Motivo |
 |-----------|------|--------|
-| `page.tsx` (home + [section] + code) | Server | Dados estáticos, sem interatividade |
-| `layout.tsx` | Server | Estrutura estática |
-| `Card`, `AICard`, `StatCard` | Server | Apenas renderizam props |
-| `PageSection`, `CodeTabs`, `CodeTopicPage`, `CodeCommandRow` | Server | Wrappers/render puros |
-| `Sidebar` | Client | `useState` (mobile toggle/submenu), `usePathname` (active state) |
-| `TopBar` | Client | `usePathname` (título), `useSearch()` (input de busca) |
-| `MarketBar` | Client | `useEffect` (fetch CoinGecko + AwesomeAPI na montagem) |
-| `SearchProvider` | Client | React Context requer Client Component |
-| `SearchFilter` | Client | Consome `useSearch()` para filtrar children |
-| `SectionContent` | Client | Embrulha cards com `<SearchFilter>` |
-| `CriptoPage` | Client | `useState` (filtro de categoria) |
-| `CryptoTicker` | Client | `useEffect` (fetch de APIs externas) |
-| `CopyButton` | Client | `onClick` (clipboard API) |
+| `page.tsx` (home, [section], code), `layout.tsx` | Server | Dados estáticos |
+| `Card`, `AICard`, `StatCard`, `PageSection`, `CodeTabs`, `CodeTopicPage`, `CodeCommandRow`, `CardIcon` | Server | Apenas renderizam props |
+| `Sidebar`, `TopBar`, `CommandPalette` | Client | `usePathname`, teclado, estado de UI |
+| `SearchProvider`, `MarketProvider` | Client | Context + estado |
+| `MarketBar`, `CryptoTicker` | Client | Consomem `useMarket()` |
+| `SectionContent`, `CriptoPage`, `FavoritesSection`, `HeroSearch`, `EmptyState`, `FavoriteButton` | Client | `useSearch()`, `useFavorites()`, estado |
+| `CopyButton`, `TruncatedDescription` | Client | Clipboard / medição e portal |
 
-### Padrão de Busca Global
+### Busca, Filtro e Favoritos
+
+Dois mecanismos complementares, ambos efêmeros (sem URL params):
 
 ```
-SearchProvider (contexto: query + setQuery)
-  ├── TopBar: escreve query via input
-  └── SearchFilter: lê query, renderiza children ou null
-       └── Usado em SectionContent e CriptoPage
+SearchProvider (query do filtro + estado da paleta)
+  ├── TopBar: input "Filtrar nesta página" (só em FILTERABLE_SECTIONS) → setQuery
+  ├── useFilteredItems(items): lê a query e filtra (SectionContent, CriptoPage) → EmptyState quando vazio
+  └── CommandPalette (Ctrl/⌘+K): busca em `catalog` + `pages` de lib/registry.ts, em todas as seções
 ```
 
-**Por que Context em vez de URL search params?** A busca é efêmera — o usuário digita e vê resultados instantaneamente. Persistir no URL causaria navegações desnecessárias e poluiria o histórico.
+- A `query` pertence à rota em que foi digitada: ao navegar volta a `''` (derivado do `pathname`, sem `useEffect`).
+- `matchesQuery` normaliza acentos e exige todos os termos; o texto pesquisável inclui nome, descrição, categorias (cripto) e rótulos de links.
+- **Favoritos**: `useFavorites()` guarda chaves `seção:nome` em `localStorage` (`ai-start:favorites`) via `useSyncExternalStore`. A home (`FavoritesSection`) e a paleta resolvem as chaves em `catalogByKey`. **Renomear um item em `src/data/` invalida o favorito dele.**
+- Novo item em `src/data/` entra automaticamente na paleta e nos favoritos (o `registry.ts` lê os arrays).
 
 ### Rotas Dinâmicas
 
@@ -169,30 +166,30 @@ npm run lint
 - **Tipagem**: Todas as props são explicitamente tipadas; `SectionId` usado em vez de `string` para slugs de seção
 - **Client Components**: Sempre declarados com `'use client'` na primeira linha; sem efeitos colaterais no corpo do módulo
 - **Componentes de Card**: Recebem `BaseItem` ou variante como props, renderizam `<Link>` com `target="_blank" rel="noopener noreferrer"` para URLs externas
-- **Estados de UI**: Loading (`loading.tsx`), Empty (resultado de filtro vazio implícito), Error (`error.tsx` com reset), 404 (`not-found.tsx`)
+- **Estados de UI**: Loading (`loading.tsx`, skeleton), Empty (`EmptyState` quando o filtro zera a lista), Error (`error.tsx` com reset), 404 (`not-found.tsx`)
+- **Hooks/efeitos**: evite `setState` síncrono dentro de `useEffect` (lint `react-hooks/set-state-in-effect`); prefira estado derivado ou `useSyncExternalStore`
+- **Acessibilidade**: `<h1>` só na `TopBar`; links overlay de card precisam de `aria-label`; botões toggle usam `aria-pressed`; animações respeitam `prefers-reduced-motion`
+- **Novos itens**: ao adicionar em `src/data/`, use `name` estável (é a chave do favorito)
 
 ## Seções do Dashboard
 
 | Seção | Rota | Items | Tipo de Card |
 |--------|------|-------|-------------|
-| Home (stats) | `/` | 7 stats | StatCard |
-| IAs & APIs | `/ais` | 12 | AICard (chat opcional + links de API) |
-| Repositórios | `/repos` | 2 | Card (com links) |
-| Utilitários | `/utils` | 2 | Card |
-| Skills | `/skills` | 12 | Card (com links) |
-| Cursos | `/cursos` | 4 | Card |
-| Cripto | `/cripto` | 35 + ticker | TermCard + CryptoTicker |
+| Home | `/` | hero + favoritos + 7 atalhos | StatCard (link) |
+| IAs & APIs | `/ais` | ver `src/data/ais.ts` | AICard (chat opcional + links de API) |
+| Repositórios | `/repos` | ver `src/data/repos.ts` | Card (com links) |
+| Utilitários | `/utils` | ver `src/data/utils.ts` | Card |
+| Skills | `/skills` | ver `src/data/skills.ts` | Card (com links) |
+| Cursos | `/cursos` | ver `src/data/cursos.ts` | Card |
+| Cripto | `/cripto` | ver `src/data/cripto.ts` + ticker | TermCard + CryptoTicker |
 | Code | `/code/[topic]` | 5 tópicos | CodeTabs + CodeCommandRow |
-| Oportunidades | `/jobs` | 3 | Card |
+| Oportunidades | `/jobs` | ver `src/data/jobs.ts` | Card |
 
 ## APIs Externas
 
-- **CoinGecko**: `GET https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd` — preços BTC/ETH/SOL
+- **CoinGecko**: `GET https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true` — preços e variação 24h de BTC/ETH/SOL
 - **AwesomeAPI**: `GET https://economia.awesomeapi.com.br/json/last/USD-BRL` — cotação USD/BRL
 
-Ambas são chamadas em dois Client Components:
+Ambas são chamadas **uma única vez** por `MarketProvider` (em `layout.tsx`) via `lib/market.ts`, e consumidas por `MarketBar` e `CryptoTicker` com `useMarket()`. Atualiza ao montar, a cada 60s (só com a aba visível, intervalo mínimo de 30s) e no botão de refresh.
 
-1. **`MarketBar.tsx`** (barra global no `layout.tsx`) — busca na montagem e no botão de refresh.
-2. **`CryptoTicker.tsx`** (seção Cripto) — busca na montagem e no botão de refresh.
-
-Fallback: valores `null` com indicador visual de erro, sem quebrar a UI.
+Fallback: cada fonte falha de forma independente; valores `null` viram "—" e o último valor bom é mantido. O plano gratuito da CoinGecko tem rate limit — recarregar a página várias vezes seguidas pode deixar BTC/ETH/SOL em "—" por um tempo.

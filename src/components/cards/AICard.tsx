@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { LinkItem } from '@/types';
 import TruncatedDescription from '@/components/ui/TruncatedDescription';
+import CardIcon from '@/components/ui/CardIcon';
+import FavoriteButton from '@/components/ui/FavoriteButton';
 
 const COLOR_RGB: Record<string, string> = {
   purple: '124,92,252',
@@ -21,21 +23,20 @@ interface AICardProps {
   color: 'purple' | 'green' | 'orange' | 'blue' | 'red' | 'cyan';
   links?: LinkItem[];
   index?: number;
+  favKey?: string;
 }
 
-export default function AICard({ name, url, desc, icon, color, links, index = 0 }: AICardProps) {
-  const isImage = icon.startsWith('/');
+export default function AICard({ name, url, desc, icon, color, links, index = 0, favKey }: AICardProps) {
   const style: AICardStyle = {
     '--ai-accent': COLOR_RGB[color] || COLOR_RGB.purple,
-    animationDelay: `${index * 0.04}s`,
+    animationDelay: `${Math.min(index, 12) * 0.04}s`,
   };
 
   return (
     <div className="ai-card" style={style}>
       <span className="ai-card-pulse" aria-hidden="true" />
-      <div className={`card-icon ${color}`}>
-        {isImage ? <img src={icon} alt={name} className="card-icon-img" /> : icon}
-      </div>
+      {favKey && <FavoriteButton itemKey={favKey} name={name} />}
+      <CardIcon icon={icon} color={color} />
       <h4>{name}</h4>
       <TruncatedDescription text={desc} />
       <div className="ai-card-actions">
