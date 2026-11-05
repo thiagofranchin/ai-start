@@ -53,7 +53,7 @@ export default function CryptoTicker() {
         <span className={styles.tickerUpdateTime}>
           {prices.error ? '⚠️ Sem conexão com as fontes' : prices.updatedAt ? `⏱️ ${prices.updatedAt} · atualiza a cada 60s` : 'Sincronizando…'}
         </span>
-        <span className={styles.tickerSource}>CoinGecko · AwesomeAPI</span>
+        <span className={styles.tickerSource}>{prices.source ?? 'Binance'} · AwesomeAPI</span>
       </div>
     </section>
   );

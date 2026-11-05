@@ -9,7 +9,7 @@ Dashboard pessoal para centralizar ferramentas, IAs, APIs, repositórios, comand
 - Filtro por página sem diferenciar acentos, com estado vazio e botão "Limpar busca".
 - Seções para IAs & APIs, Agents & Skills, repositórios, utilitários, cursos, cripto & DeFi e oportunidades.
 - Guia de comandos copiáveis para Python, Node, Free Claude Code, Claude Code & Codex e DeepSeek Harness.
-- Cotações de BTC, ETH, SOL (com variação 24h) e USD/BRL, atualizadas a cada 60s via CoinGecko e AwesomeAPI.
+- Cotações de BTC, ETH, SOL (com variação 24h) e USD/BRL, atualizadas a cada 60s via Binance (reserva: CoinGecko) e AwesomeAPI.
 - Layout responsivo, sidebar agrupada, navegação por teclado, link "Pular para o conteúdo" e suporte a `prefers-reduced-motion`.
 
 ## Tecnologias

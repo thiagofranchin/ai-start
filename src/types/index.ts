@@ -82,6 +82,8 @@ export interface CriptoPrices {
   btcChange: number | null;
   ethChange: number | null;
   solChange: number | null;
+  /** Fonte das cotações cripto que respondeu por último */
+  source: string | null;
   updatedAt: string | null;
   error: boolean;
 }

@@ -187,9 +187,12 @@ npm run lint
 
 ## APIs Externas
 
-- **CoinGecko**: `GET https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true` — preços e variação 24h de BTC/ETH/SOL
+- **Binance (principal)**: `GET https://data-api.binance.vision/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT","SOLUSDT"]` — preço e variação 24h (endpoint público de dados de mercado, CORS liberado; USDT ≈ USD)
+- **CoinGecko (reserva)**: `GET https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true` — só é usada se a Binance falhar
 - **AwesomeAPI**: `GET https://economia.awesomeapi.com.br/json/last/USD-BRL` — cotação USD/BRL
 
-Ambas são chamadas **uma única vez** por `MarketProvider` (em `layout.tsx`) via `lib/market.ts`, e consumidas por `MarketBar` e `CryptoTicker` com `useMarket()`. Atualiza ao montar, a cada 60s (só com a aba visível, intervalo mínimo de 30s) e no botão de refresh.
+Todas são chamadas **uma única vez** por `MarketProvider` (em `layout.tsx`) via `lib/market.ts`, e consumidas por `MarketBar` e `CryptoTicker` com `useMarket()`. Atualiza ao montar, a cada 60s (só com a aba visível, intervalo mínimo de 30s) e no botão de refresh. A fonte que respondeu fica em `prices.source`.
 
-Fallback: cada fonte falha de forma independente; valores `null` viram "—" e o último valor bom é mantido. O plano gratuito da CoinGecko tem rate limit — recarregar a página várias vezes seguidas pode deixar BTC/ETH/SOL em "—" por um tempo.
+**Por que a Binance é a principal:** o plano gratuito da CoinGecko limita por IP e, ao limitar, responde **sem** `Access-Control-Allow-Origin` — no navegador isso aparece como erro de CORS ("Failed to fetch") e BTC/ETH/SOL ficam em "—" mesmo com a API funcionando fora do navegador.
+
+Fallback: cada fonte falha de forma independente; valores `null` viram "—" e o último valor bom é mantido.
