@@ -36,4 +36,6 @@ export const cripto: CriptoItem[] = [
   { name: 'Token Terminal', url: 'https://tokenterminal.com/explorer', desc: 'Métricas financeiras on-chain — receita, lucro e valuation de protocolos DeFi', icon: '💹', color: 'blue', categories: ['Analytics'] },
   { name: 'RWA.xyz', url: 'https://app.rwa.xyz/', desc: 'Dados e análises de Real World Assets tokenizados — treasuries, crédito e commodities', icon: '🌍', color: 'green', categories: ['Analytics', 'RWA'] },
   { name: 'Arkham', url: 'https://arkm.com/', desc: 'Inteligência blockchain — rastreamento, deanonymização e análise de entidades on-chain', icon: '🎯', color: 'purple', categories: ['Analytics'] },
+  { name: 'Fluid', url: 'https://fluid.io/', desc: 'Lending e DEX em uma única camada de liquidez — rendimento em stablecoins/ETH, vaults isolados e swaps', icon: '💧', color: 'cyan', categories: ['Lending', 'Swap'] },
+  { name: 'Hyperliquid', url: 'https://hyperliquid.xyz/', desc: 'DEX de perpétuos on-chain 24/7 — cripto, commodities, índices e FX sem intermediários', icon: '⚡', color: 'green', categories: ['Trading', 'DeFi'] },
 ];
