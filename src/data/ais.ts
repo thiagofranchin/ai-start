@@ -48,7 +48,7 @@ export const ais: AIItem[] = [
     desc: "Plataforma unificada para acessar multiplos modelos de IA",
     icon: "/icons/openrouter.svg",
     color: "purple",
-    links: [{ url: "https://openrouter.ai/workspaces/default/keys", label: "API" }],
+    links: [{ url: "https://openrouter.ai/workspaces/default/keys", label: "⚙️ API" }],
   },
   {
     name: 'NVIDIA',
@@ -101,11 +101,18 @@ export const ais: AIItem[] = [
     links: [{ url: 'https://cryptoquant.com/settings/api', label: '⚙️ API' }],
   },
   {
+    name: 'DexPaprika',
+    desc: 'API de dados de DEXs, pools e tokens on-chain em múltiplas redes',
+    icon: '/icons/dexpaprika.svg',
+    color: 'green',
+    links: [{ url: 'https://console.dexpaprika.com/keys', label: '⚙️ API' }],
+  },
+  {
     name: "Z.ai",
     url: "https://z.ai/",
     desc: "Assistente IA da Z.ai",
     icon: "/icons/zai.svg",
     color: "red",
-    links: [{ url: "https://z.ai/manage-apikey/apikey-list", label: "API" }],
+    links: [{ url: "https://z.ai/manage-apikey/apikey-list", label: "⚙️ API" }],
   },
 ];
