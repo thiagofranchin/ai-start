@@ -55,6 +55,7 @@ src/
 │       ├── CardIcon.tsx        # Ícone de card (emoji ou imagem via next/image `unoptimized`)
 │       ├── FavoriteButton.tsx  # Botão ★ (aria-pressed)
 │       ├── EmptyState.tsx      # "Nenhum resultado" + Limpar busca
+│       ├── CategoryFilter.tsx(+.module.css)  # Pílulas de filtro por categoria (aria-pressed) — usado em /ais (Todos / IAs / Finanças)
 │       ├── CopyButton.tsx
 │       └── TruncatedDescription.tsx  # Descrição com clamp + tooltip (portal)
 ├── data/                       # Arrays estáticos tipados por seção (ais, repos, skills, cursos, utils, jobs, cripto, code) + index.ts
@@ -172,6 +173,7 @@ npm run lint
 - **Hooks/efeitos**: evite `setState` síncrono dentro de `useEffect` (lint `react-hooks/set-state-in-effect`); prefira estado derivado ou `useSyncExternalStore`
 - **Acessibilidade**: `<h1>` só na `TopBar`; links overlay de card precisam de `aria-label`; botões toggle usam `aria-pressed`; animações respeitam `prefers-reduced-motion`
 - **Novos itens**: ao adicionar em `src/data/`, use `name` estável (é a chave do favorito)
+- **Categoria em /ais**: `AIItem.category` (`'ia'` por padrão, `'financas'` para APIs financeiras/on-chain como Infura, Etherscan, Dune, FMP, FRED, CryptoQuant, DexPaprika); o filtro Todos/IAs/Finanças fica em `SectionContent` e vem antes da busca por texto
 
 ## Seções do Dashboard
 

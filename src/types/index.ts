@@ -15,7 +15,12 @@ export interface LinkItem {
   label: string;
 }
 
+/** Categoria dos cards de /ais (padrão: 'ia') */
+export type AICategory = 'ia' | 'financas';
+
 export interface AIItem extends BaseItemFields {
+  /** Omitido = 'ia' */
+  category?: AICategory;
   url?: string;
   links?: LinkItem[];
 }

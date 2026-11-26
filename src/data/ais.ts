@@ -67,6 +67,7 @@ export const ais: AIItem[] = [
   },
   {
     name: 'Infura',
+    category: 'financas',
     desc: 'API e infraestrutura Web3 para Ethereum e IPFS',
     icon: '/icons/infura.svg',
     color: 'orange',
@@ -74,6 +75,7 @@ export const ais: AIItem[] = [
   },
   {
     name: 'Etherscan.io',
+    category: 'financas',
     desc: 'Explorador de blocos e dados on-chain do Ethereum',
     icon: 'Ξ',
     color: 'blue',
@@ -81,6 +83,7 @@ export const ais: AIItem[] = [
   },
   {
     name: 'Dune',
+    category: 'financas',
     desc: 'Análise e dashboards de dados on-chain',
     icon: '/icons/dune.svg',
     color: 'blue',
@@ -88,6 +91,7 @@ export const ais: AIItem[] = [
   },
   {
     name: 'FMP',
+    category: 'financas',
     desc: 'API de dados financeiros e fundamentos de empresas',
     icon: '/icons/fmp.svg',
     color: 'cyan',
@@ -95,6 +99,7 @@ export const ais: AIItem[] = [
   },
   {
     name: 'FRED',
+    category: 'financas',
     desc: 'Dados econômicos e séries históricas do Federal Reserve de St. Louis',
     icon: '/icons/fred.svg',
     color: 'blue',
@@ -102,6 +107,7 @@ export const ais: AIItem[] = [
   },
   {
     name: 'CryptoQuant',
+    category: 'financas',
     desc: 'Dados e análises on-chain para o mercado cripto',
     icon: '₿',
     color: 'orange',
@@ -109,6 +115,7 @@ export const ais: AIItem[] = [
   },
   {
     name: 'DexPaprika',
+    category: 'financas',
     desc: 'API de dados de DEXs, pools e tokens on-chain em múltiplas redes',
     icon: '/icons/dexpaprika.svg',
     color: 'green',
