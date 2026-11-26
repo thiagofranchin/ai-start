@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { cripto } from '@/data';
 import CryptoTicker from './CryptoTicker';
+import FearGreedGauge from './FearGreedGauge';
 import EmptyState from '@/components/ui/EmptyState';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import { useFilteredItems } from './useFilteredItems';
@@ -103,6 +104,7 @@ export default function CriptoPage() {
       )}
 
       <CryptoTicker />
+      <FearGreedGauge />
     </div>
   );
 }

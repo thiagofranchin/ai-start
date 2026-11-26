@@ -8,6 +8,8 @@ export interface MarketSnapshot {
   /** Fonte que respondeu (para exibir na UI) */
   cryptoSource: 'Binance' | 'CoinGecko' | null;
   dolar: number | null;
+  /** Crypto Fear & Greed Index (0–100) */
+  fearGreed: number | null;
 }
 
 // Binance (endpoint público só de dados de mercado, com CORS liberado) é a fonte principal:
@@ -18,6 +20,8 @@ const BINANCE_URL =
 const COINGECKO_URL =
   'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true';
 const AWESOMEAPI_URL = 'https://economia.awesomeapi.com.br/json/last/USD-BRL';
+// Crypto Fear & Greed Index (alternative.me, CORS liberado); atualiza 1x por dia
+const FEAR_GREED_URL = 'https://api.alternative.me/fng/?limit=1';
 
 async function getJson(url: string): Promise<unknown> {
   const res = await fetch(url, { cache: 'no-store' });
@@ -81,8 +85,18 @@ async function fetchDolar(): Promise<number | null> {
   }
 }
 
+async function fetchFearGreed(): Promise<number | null> {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const value = num(((await getJson(FEAR_GREED_URL)) as any)?.data?.[0]?.value);
+    return value !== null && value >= 0 && value <= 100 ? value : null;
+  } catch {
+    return null;
+  }
+}
+
 /** Busca cotações; cada fonte falha de forma independente (valor `null`). */
 export async function fetchMarket(): Promise<MarketSnapshot> {
-  const [{ crypto, source }, dolar] = await Promise.all([fetchCrypto(), fetchDolar()]);
-  return { crypto, cryptoSource: source, dolar };
+  const [{ crypto, source }, dolar, fearGreed] = await Promise.all([fetchCrypto(), fetchDolar(), fetchFearGreed()]);
+  return { crypto, cryptoSource: source, dolar, fearGreed };
 }

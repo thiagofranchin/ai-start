@@ -10,6 +10,7 @@ const MIN_GAP_MS = 30_000;
 const initialPrices: CriptoPrices = {
   btc: null, eth: null, sol: null, dolar: null,
   btcChange: null, ethChange: null, solChange: null,
+  fearGreed: null,
   source: null, updatedAt: null, error: false,
 };
 
@@ -40,7 +41,7 @@ export function MarketProvider({ children }: { children: ReactNode }) {
 
   const load = useCallback(async () => {
     lastFetch.current = Date.now();
-    const { crypto, cryptoSource, dolar } = await fetchMarket();
+    const { crypto, cryptoSource, dolar, fearGreed } = await fetchMarket();
     setPrices((prev) => ({
       btc: crypto?.btc ?? prev.btc,
       eth: crypto?.eth ?? prev.eth,
@@ -49,9 +50,10 @@ export function MarketProvider({ children }: { children: ReactNode }) {
       ethChange: crypto?.ethChange ?? prev.ethChange,
       solChange: crypto?.solChange ?? prev.solChange,
       dolar: dolar ?? prev.dolar,
+      fearGreed: fearGreed ?? prev.fearGreed,
       source: cryptoSource ?? prev.source,
       updatedAt: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-      error: crypto === null && dolar === null,
+      error: crypto === null && dolar === null && fearGreed === null,
     }));
   }, []);
 

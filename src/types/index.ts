@@ -82,6 +82,8 @@ export interface CriptoPrices {
   btcChange: number | null;
   ethChange: number | null;
   solChange: number | null;
+  /** Crypto Fear & Greed Index (0 = medo extremo, 100 = ganância extrema) */
+  fearGreed: number | null;
   /** Fonte das cotações cripto que respondeu por último */
   source: string | null;
   updatedAt: string | null;

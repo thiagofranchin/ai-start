@@ -1,0 +1,114 @@
+.section {
+  margin-top: 28px;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--term-border, #1a1a2a);
+}
+
+.title {
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--term-text, #d4d4d4);
+}
+
+.subtitle {
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  font-size: .62rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--term-muted, #8a8a9c);
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 36px;
+  margin-top: 12px;
+  padding: 20px 16px;
+  background: rgba(255,255,255,.015);
+  border: 1px solid var(--term-border, #1a1a2a);
+  border-radius: 3px;
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+}
+
+.gauge {
+  width: min(100%, 320px);
+  height: auto;
+  overflow: visible;
+}
+
+.arc {
+  stroke-linecap: butt;
+  transition: opacity .4s ease;
+}
+
+.arcDim { opacity: .3; }
+
+.tick line { stroke: var(--term-dim, #2a2a3e); stroke-width: 1; }
+.tick text { fill: var(--term-muted, #8a8a9c); font-size: 7px; }
+
+.needle {
+  transform-origin: 100px 100px;
+  transition: transform 1s cubic-bezier(.34, 1.4, .64, 1);
+  filter: drop-shadow(0 0 3px rgba(0,0,0,.6));
+}
+
+.hub { fill: var(--term-bg, #050508); stroke: var(--term-dim, #2a2a3e); stroke-width: 1.5; }
+
+.readout { text-align: center; min-width: 150px; }
+
+.value {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--term-text, #d4d4d4);
+}
+
+.label {
+  margin-top: 6px;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  font-size: .55rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--term-muted, #8a8a9c);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  font-size: .62rem;
+  color: var(--term-muted, #8a8a9c);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.source { opacity: .4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .needle, .arc { transition: none; }
+}

@@ -1,11 +1,13 @@
 'use client';
 
 import { formatChange, formatPrice } from '@/lib/utils';
+import { getFearGreedZone } from '@/lib/fearGreed';
 import { useMarket } from './MarketProvider';
 import styles from './MarketBar.module.css';
 
 export default function MarketBar() {
   const { prices, loading, refresh } = useMarket();
+  const fearGreedZone = prices.fearGreed === null ? null : getFearGreedZone(prices.fearGreed);
 
   const items = [
     { symbol: 'BTC', icon: '₿', value: prices.btc, change: prices.btcChange, prefix: '$', tone: 'btc' },
@@ -33,6 +35,18 @@ export default function MarketBar() {
             )}
           </div>
         ))}
+        <div className={styles.quote} title="Crypto Fear & Greed Index (0 = medo extremo, 100 = ganância extrema)">
+          <span className={`${styles.coinIcon} ${styles.fng}`} aria-hidden="true">◔</span>
+          <span className={styles.symbol}>F&amp;G</span>
+          {fearGreedZone ? (
+            <>
+              <strong style={{ color: fearGreedZone.color }}>{Math.round(prices.fearGreed!)}</strong>
+              <span className={styles.fngLabel} style={{ color: fearGreedZone.color }}>{fearGreedZone.label}</span>
+            </>
+          ) : (
+            <strong>—</strong>
+          )}
+        </div>
       </div>
       <span className={styles.updated} aria-live="polite">{prices.updatedAt || 'sincronizando'}</span>
       <button

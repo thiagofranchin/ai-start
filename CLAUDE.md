@@ -49,7 +49,8 @@ src/
 │   │   ├── FavoritesSection.tsx / HeroSearch.tsx  # Home: favoritos fixados e botão de busca do hero
 │   │   ├── CodeTabs.tsx / CodeTopicPage.tsx / CodeCommandRow.tsx
 │   │   ├── CriptoPage.tsx(+.module.css)    # Client — tema terminal, filtro de categoria, tags, ★ favorito
-│   │   └── CryptoTicker.tsx(+.module.css)  # Client — cards de preço (consome MarketProvider)
+│   │   ├── CryptoTicker.tsx(+.module.css)  # Client — cards de preço (consome MarketProvider)
+│   │   └── FearGreedGauge.tsx(+.module.css)  # Client — medidor (velocímetro SVG) do Fear & Greed, abaixo dos preços
 │   └── ui/
 │       ├── CardIcon.tsx        # Ícone de card (emoji ou imagem via next/image `unoptimized`)
 │       ├── FavoriteButton.tsx  # Botão ★ (aria-pressed)
@@ -63,7 +64,8 @@ src/
     ├── registry.ts             # `catalog` (todos os cards, chave `seção:nome`) + `pages` — alimenta paleta e favoritos
     ├── search.ts               # normalize() e matchesQuery() (sem acento, multi-termo)
     ├── favorites.ts            # useFavorites() — localStorage via useSyncExternalStore
-    ├── market.ts               # fetchMarket() — CoinGecko + AwesomeAPI, falha independente por fonte
+    ├── market.ts               # fetchMarket() — Binance/CoinGecko + AwesomeAPI + Fear & Greed, falha independente por fonte
+    ├── fearGreed.ts            # Faixas (pt-BR/cores) do Fear & Greed e getFearGreedZone()
     ├── site.ts                 # SITE_URL, pageMetadata()
     ├── useIsClient.ts          # useIsClient() / useModKey() sem setState em efeito
     └── utils.ts                # formatPrice, formatChange
@@ -190,6 +192,7 @@ npm run lint
 - **Binance (principal)**: `GET https://data-api.binance.vision/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT","SOLUSDT"]` — preço e variação 24h (endpoint público de dados de mercado, CORS liberado; USDT ≈ USD)
 - **CoinGecko (reserva)**: `GET https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true` — só é usada se a Binance falhar
 - **AwesomeAPI**: `GET https://economia.awesomeapi.com.br/json/last/USD-BRL` — cotação USD/BRL
+- **Crypto Fear & Greed Index (alternative.me)**: `GET https://api.alternative.me/fng/?limit=1` — índice 0–100 (CORS liberado, atualiza 1x/dia); exibido na `MarketBar` (após o dólar) e no `FearGreedGauge` da página Cripto
 
 Todas são chamadas **uma única vez** por `MarketProvider` (em `layout.tsx`) via `lib/market.ts`, e consumidas por `MarketBar` e `CryptoTicker` com `useMarket()`. Atualiza ao montar, a cada 60s (só com a aba visível, intervalo mínimo de 30s) e no botão de refresh. A fonte que respondeu fica em `prices.source`.
 

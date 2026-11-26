@@ -9,6 +9,8 @@
 .symbol { color: var(--text-muted); font-size: .6rem; letter-spacing: .08em; }
 .coinIcon { font-size: .78rem; }
 .btc { color: #f7931a; } .eth { color: #9d9dff; } .sol { color: #00ffa3; } .usd { color: #f7d447; }
+.fng { color: #eab308; }
+.fngLabel { font-size: .6rem; font-weight: 500; }
 .change { font-size: .6rem; font-weight: 500; }
 .up { color: var(--green); }
 .down { color: var(--red); }
@@ -20,5 +22,5 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 50% { opacity: .35; box-shadow: 0 0 2px currentColor; } }
 @media (max-width: 900px) { .bar { left: 0; padding: 0 14px 0 58px; gap: 10px; } .status, .updated { display: none; } .track { overflow-x: auto; scrollbar-width: none; } .track::-webkit-scrollbar { display: none; } .quote { padding: 0 12px; } }
-@media (max-width: 700px) { .change { display: none; } }
+@media (max-width: 700px) { .change, .fngLabel { display: none; } }
 @media (max-width: 520px) { .bar { padding-right: 10px; } .quote { gap: 5px; padding: 0 9px; font-size: .66rem; } .symbol { display: none; } }
